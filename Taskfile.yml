@@ -1,0 +1,52 @@
+version: '3'
+
+vars:
+  SKILL_SRC: '{{.TASKFILE_DIR}}/skills/aicoder'
+  SKILL_DST: '{{.HOME}}/.claude/skills/aicoder'
+
+tasks:
+  default:
+    desc: List tasks
+    cmds:
+      - task --list
+
+  install:
+    desc: Symlink local skill → ~/.claude/skills/aicoder (dev — edits in repo are live)
+    cmds:
+      - rm -rf "{{.SKILL_DST}}"
+      - mkdir -p "$(dirname "{{.SKILL_DST}}")"
+      - ln -s "{{.SKILL_SRC}}" "{{.SKILL_DST}}"
+      - echo "✓ symlinked {{.SKILL_DST}} → {{.SKILL_SRC}}"
+      - echo "  restart Claude Code so it rescans ~/.claude/skills/"
+
+  install:copy:
+    desc: Copy skill → ~/.claude/skills/aicoder (no live edits, snapshot)
+    cmds:
+      - rm -rf "{{.SKILL_DST}}"
+      - mkdir -p "$(dirname "{{.SKILL_DST}}")"
+      - cp -R "{{.SKILL_SRC}}" "{{.SKILL_DST}}"
+      - echo "✓ copied {{.SKILL_SRC}} → {{.SKILL_DST}}"
+
+  install:release:
+    desc: Run the production install.sh (downloads latest GitHub release)
+    cmds:
+      - bash "{{.TASKFILE_DIR}}/install.sh"
+
+  uninstall:
+    desc: Remove ~/.claude/skills/aicoder
+    cmds:
+      - rm -rf "{{.SKILL_DST}}"
+      - echo "✓ removed {{.SKILL_DST}}"
+
+  status:
+    desc: Show what's installed at ~/.claude/skills/aicoder
+    cmds:
+      - |
+        if [ -L "{{.SKILL_DST}}" ]; then
+          echo "symlink → $(readlink "{{.SKILL_DST}}")"
+        elif [ -d "{{.SKILL_DST}}" ]; then
+          echo "copy at {{.SKILL_DST}}"
+          ls -la "{{.SKILL_DST}}" | head -5
+        else
+          echo "not installed"
+        fi
