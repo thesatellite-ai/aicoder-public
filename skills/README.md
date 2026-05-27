@@ -4,7 +4,7 @@
 
 ```bash
 # install into the consuming project
-npx skills add khanakia/aicoder-cli-go
+npx skills add thesatellite-ai/aicoder-cli-go
 ```
 
 Sources live here under `skills/<name>/` at the repo root (NOT under `.claude/`) so they're versioned, audited, and distributable. The consumer's `skills add` drops them into that project's `.claude/skills/` per skills.sh convention.
