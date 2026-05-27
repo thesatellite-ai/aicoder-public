@@ -72,84 +72,149 @@ Decisions, Memories, Comments, Activity
 
 ## How you actually call it
 
-**Reality check:** there are two deployment shapes:
+**Reality check:** you call GraphQL directly from the Bash tool. The `aicoder` CLI is your *config manager* — it tells you what host/key/workspace/project to use, but it doesn't proxy your API requests.
 
-| Shape | Where you run from | Available interfaces |
-|---|---|---|
-| **Local dev** | Your own machine, repo checked out, `task saas:dev:portless` running | GraphQL at `https://api.aicoder.localhost`, plus `saasfly aicoder ...` CLI (built locally) |
-| **VPS / hosted** | Claude Code on your laptop, aicoder running on a VPS | GraphQL at `https://api.<your-host>` ONLY — no CLI access from your laptop |
+Three components in the chain:
 
-**→ For 99% of Claude Code use, you go through GraphQL HTTP. The CLI is a shell convenience, not the canonical interface.**
+| Component | Role |
+|---|---|
+| **`aicoder` CLI** | Stores credentials, resolves the right key + workspace + project for the current repo and intent |
+| **You (the agent)** | Read config via the CLI, then make GraphQL calls via the Bash tool |
+| **`/api/dash/query`** | The GraphQL endpoint — same one the dashboard uses |
 
-The skill assumes GraphQL-first. CLI examples are shown only for completeness, and only work on a host that has the `saasfly` binary on `$PATH` and DB connectivity.
+### Step 1 — find out where you are
 
-### GraphQL endpoint
+In a fresh session, before any project-scoped action, discover the available projects:
+
+```bash
+aicoder config list --json
+```
+
+Output (example):
+
+```json
+{
+  "active":  "main",
+  "default": "main",
+  "host":    "https://api.aicoder.localhost",
+  "file":    "/Users/you/code/repo/.aicoder/config.json",
+  "profiles": {
+    "main":     { "project": "prj_main",     "description": "Default — coordination, cross-cutting tasks" },
+    "slack":    { "project": "prj_slack",    "description": "Slack integration — bot, slash commands, webhooks" },
+    "contacts": { "project": "prj_contacts", "description": "Contact manager — CRM, segmentation" }
+  }
+}
+```
+
+**Pick the profile whose `description` best matches the user's intent.** Routing rules:
+
+1. **Exactly one match** → use that profile.
+2. **Multiple match** → ASK the user which one (cite the descriptions back to them).
+3. **None match** → fall back to `active`, OR ask if the request is ambiguous.
+
+If the repo has only one profile (`config list --json` returns `{ profiles: { default: … } }`), skip the routing step and use `default`.
+
+### Step 2 — load credentials into your shell
+
+```bash
+eval "$(aicoder env --profile=<picked>)"
+```
+
+This exports four variables:
 
 ```
-POST   https://api.<your-host>/api/dash/query
-QUERY  ?pkey=<dev-key>      # dev playground only — see below
+AICODER_HOST       https://api.aicoder.localhost
+AICODER_KEY        ak_xxx…yyy   ← plaintext key, valid until revoked
+AICODER_WORKSPACE  wsp_…
+AICODER_PROJECT    prj_…
 ```
 
-**Auth (three paths, pick one):**
+For single-profile repos, plain `eval "$(aicoder env)"` is enough.
 
-1. **User API key (recommended for agents)** — mint a long-lived per-user key once and send it as `Authorization: Bearer <raw>` on every request. Tenancy is set per request via `X-Workspace-Id: <wsp_…>`. Mint with:
+### Step 3 — make GraphQL calls
 
-   ```bash
-   # Either via the project Taskfile:
-   task aicoder:apikey:create USER=usr_… NAME="my agent" TTL=720h SCOPES=read,write [WORKSPACE=wsp_…]
+```bash
+curl -sf -X POST "$AICODER_HOST/api/dash/query" \
+  -H "Authorization: Bearer $AICODER_KEY" \
+  -H "X-Workspace-Id: $AICODER_WORKSPACE" \
+  -H "X-Project-Id: $AICODER_PROJECT" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"{ tasks(first:5) { edges { node { id title status } } } }"}'
+```
 
-   # Or directly via the CLI:
-   cd saas && go run ./cmd/cli apikey create \
-     --user=usr_… --name="my agent" --ttl=720h --scopes=read,write
-   ```
+That's the standard pattern for every read or mutate. The headers + body are the only things that change per request.
 
-   The raw `ak_<prefix>_<secret>` is printed **once** (authmgr stores only the hash + prefix). Save it. Use as:
+### Endpoint details
 
-   ```bash
-   curl -H "Authorization: Bearer ak_…" -H "X-Workspace-Id: wsp_…" \
-        -H "Content-Type: application/json" \
-        -d '{"query":"{ ping }"}' "$HOST/api/dash/query"
-   ```
-
-2. **User session JWT** — `authLogin(email, password)` → `accessToken` (~15 min) + `refreshToken`. Send `Authorization: Bearer <accessToken>`; on 401 (`"unauthorized: authentication required"`), call `authRefresh(refreshToken)` and retry once. Same `X-Workspace-Id` header.
-
-3. **System / `X-Internal-Key`** — admin path: send `X-Internal-Key: <value>` (set in PKL config, also gates `/api/i/*`). Bypasses user auth (`@internal`-marked fields still gate further). Requests are unscoped — no workspace interceptor applies — so pass `projectID` etc. explicitly.
-
-**Dev shortcut:** the playground accepts `?pkey=<dev-key>` for hand-running queries in a browser. Not for programmatic use.
+```
+POST   https://api.<your-host>/api/dash/query    # programmatic
+QUERY  ?pkey=<dev-key>                           # dev playground only
+```
 
 **Author/actor identity:** every mutation that records who did something accepts an explicit `authorUserID` / `actorUserID` / `assigneeAgentID` / `capturedByUserID` / `createdByUserID` field. Pass the agent's user/agent id when calling on its behalf.
 
-**The endpoint is the source of truth.** Anything the Web UI does, you can do — the UI is just a GraphQL client. Browse the playground (`/api/dash/query_playground?pkey=…` in dev) for the full surface. Live introspection at `/api/dash/query` works in dev but is **disabled in production-mode deployments** (returns `{"errors":[{"message":"introspection disabled"}]}`) — in that case fall back to the SDL fragments at `apidash/internal/graph/schemas/*.graphql` and the curated [`API.md`](./API.md) in this skill.
+**The endpoint is the source of truth.** Anything the Web UI does, you can do — the UI is just a GraphQL client. Live introspection works in dev but is **disabled in production-mode deployments** (returns `{"errors":[{"message":"introspection disabled"}]}`) — in that case fall back to the SDL fragments at `apidash/internal/graph/schemas/*.graphql` and the curated [`API.md`](./API.md) in this skill.
 
-### Calling from Claude Code
+### Multi-project routing — the critical pattern
 
-Your two practical options:
-
-1. **`curl` via the Bash tool** — the simplest, most portable:
-   ```bash
-   curl -s -X POST -H "Content-Type: application/json" \
-     -d '{"query":"mutation { createMemory(input: { projectID: \"prj_…\", title: \"…\", body: \"…\", tag: lesson }) { id } }"}' \
-     "https://api.<your-host>/api/dash/query?pkey=$AICODER_PKEY"
-   ```
-
-2. **The Web UI** — for things best done by a human (reading dashboards, approving plans, decisions about ambiguous trade-offs). Always include the URL when you create something:
-   `https://aicoder.<your-host>/s/<specID>`
-
-### CLI (when available)
-
-The `saasfly aicoder ...` CLI exists for shell sessions on the host. If you happen to be running on the host (local dev, ssh into VPS), you can use it. Same surface as the GraphQL — every CLI subcommand maps 1:1 to a GraphQL mutation/query. See `prompts/api-cheatsheet.md` for the full GraphQL palette.
+When a single repo backs multiple aicoder projects (e.g. a monorepo with "Contact Manager" + "Slack Integration"), **every project-scoped action must be routed by description match**:
 
 ```
-saasfly aicoder task ls / new / show / move / done
-saasfly aicoder run start / plan / finish / cancel
-saasfly aicoder spec ls / new / show
-saasfly aicoder plan ls / new / approve / activate / add-task / tasks
-saasfly aicoder decision ls / new
-saasfly aicoder memory new / search
-saasfly aicoder gate ls / request / approve / reject
+User says:    "Add a task: the Slack bot stops responding after 24h"
+
+Agent does:
+  1. aicoder config list --json
+  2. Reads descriptions:
+       main:     "coordination, cross-cutting tasks"
+       slack:    "Slack integration — bot, slash commands…"  ← match
+       contacts: "Contact manager — CRM…"
+  3. eval "$(aicoder env --profile=slack)"
+  4. curl -X POST … -d '{"query":"mutation { createTask(...) }"}'
 ```
 
-Add `--json` for machine output. Set `AICODER_PROJECT=<id>` to scope.
+For ambiguous requests ("investigate webhook delivery"), **ASK** the user which project:
+
+> Which project should this go in?
+> • slack    — Slack integration (webhook handlers)
+> • contacts — Contact manager (import/export pipeline)
+> Both reference webhooks.
+
+Don't guess — the user has to manually move tasks if you pick wrong.
+
+### CLI subcommands (use when they exist)
+
+For a few common operations, the `aicoder` CLI wraps the GraphQL with a friendlier interface. When one exists, prefer it — same auth path, less boilerplate:
+
+```
+aicoder tasks list [--status=open] [--limit=20] [--profile=…]
+aicoder keys  list
+aicoder keys  mint --name=… --scope=ACCOUNT|WORKSPACE|PROJECT
+aicoder keys  revoke <ak_…>
+```
+
+For everything else (create task, mutate plan, log decision, etc.), curl GraphQL directly per the pattern above.
+
+### When you don't have credentials yet
+
+If `aicoder env` says `no host configured — run 'aicoder login'`, the user hasn't done initial setup. **You cannot run `aicoder login` yourself** — it opens a browser tab for interactive authorization, which only the user can complete.
+
+Tell the user:
+
+> You need to log into aicoder first. In your terminal, run:
+>
+> ```
+> aicoder login
+> ```
+>
+> Then re-run me and I'll continue.
+
+After the user is logged in but the repo isn't wired (`aicoder config list` says no `.aicoder/config.json`), ask for workspace + project IDs and run:
+
+```bash
+aicoder init --workspace=wsp_… --project=prj_… --description="..."
+```
+
+For multi-project repos, run `init` multiple times with different `--profile=` + `--description=` per project.
 
 **Key queries:**
 
