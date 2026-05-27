@@ -30,8 +30,9 @@ Three possible outcomes:
 |---|---|---|
 | Single profile (e.g. `{ profiles: { default: { … } } }`) | Repo wired to one aicoder project | Use it — skip to step 4 |
 | Multiple profiles | Repo wired to several aicoder projects | Continue to step 2 |
-| Error: no `.aicoder/config.json` found | Repo not wired yet | Stop, ask user to run `aicoder init` |
+| Error: no `.aicoder/config.json` found | Repo not wired yet | Stop, ask user to run `aicoder init` then `aicoder render` |
 | Error: no host / no credentials | User not logged in | Stop, ask user to run `aicoder login` |
+| Repo wired but no `.aicoder/AICODER.md` / no pointer in `CLAUDE.md` | User skipped `aicoder render` | Suggest user run `aicoder render` so future sessions auto-load this repo's bridge file (non-blocking) |
 
 ### 2. Read each profile's description
 

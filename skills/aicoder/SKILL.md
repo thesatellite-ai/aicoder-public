@@ -216,6 +216,18 @@ aicoder init --workspace=wsp_… --project=prj_… --description="..."
 
 For multi-project repos, run `init` multiple times with different `--profile=` + `--description=` per project.
 
+Then run:
+
+```bash
+aicoder render
+```
+
+This generates `.aicoder/AICODER.md` (the per-repo bridge file documenting profiles + the 3-step contract) and stitches an idempotent `@import` pointer into `CLAUDE.md`. Hand-written content in `CLAUDE.md` is preserved — only the sentinel-bounded pointer block is touched. Re-run `aicoder render` after any future `aicoder init`.
+
+### Bridge file at .aicoder/AICODER.md
+
+When the user has run `aicoder render`, a bridge file at `.aicoder/AICODER.md` documents this repo's profile menu, the 3-step usage contract, the entity cheatsheet, and a diagnostic checklist. Claude Code auto-imports it via the `@import` pointer in `CLAUDE.md`. If you can read `CLAUDE.md`, you've already loaded this transitively. Agents that don't follow `@import`: read `.aicoder/AICODER.md` directly.
+
 **Key queries:**
 
 ```graphql
