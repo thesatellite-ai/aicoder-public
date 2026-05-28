@@ -2,6 +2,20 @@
 
 Per-entity reference for the `Plan` GraphQL type. Generated from `apidash/internal/graph/schemas/*.graphql` — regenerate via `task skill:gen`.
 
+## Enums used by this entity
+
+GraphQL enum literals are **bare identifiers in UPPER_SNAKE_CASE**, never quoted strings. `status: ACTIVE` not `status: "active"` or `status: active`. See SKILL.md → "GraphQL gotchas".
+
+| Enum | Valid values |
+|---|---|
+| `PlanStatus` | `DRAFT`, `APPROVED`, `ACTIVE`, `DONE`, `CANCELLED`, `ARCHIVED` |
+
+Default status on `createPlan` if omitted: `DRAFT`. Promote via `updatePlan(input: {status: APPROVED})` once a human gate-approves. Use `CANCELLED` (not `ARCHIVED`) when ending a plan early — archive is soft-delete.
+
+## Related mutations
+
+Full set on the server: `createPlan`, `updatePlan`, `deletePlan`, `archivePlan`, `unarchivePlan`, `requestPlanReview`, `setRunPlan`. The "Related mutations" section below may be out of date — trust the schema fragment in `apidash/internal/graph/schemas/*.graphql`.
+
 ## Object type
 
 _Defined in `ent.graphql`._

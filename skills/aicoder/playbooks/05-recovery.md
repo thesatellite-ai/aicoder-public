@@ -155,7 +155,7 @@ Sometimes a plan's strategy is invalidated mid-execution (constraint change, ext
 
 ```bash
 # 1. Cancel the current plan — don't leave it active with mismatched tasks
-gql 'mutation { updatePlan(id:"'$PLAN'", input:{status: cancelled}){ id status } }'
+gql 'mutation { updatePlan(id:"'$PLAN'", input:{status: CANCELLED}){ id status } }'
 
 # 2. Move in-flight tasks back to todo or archive them
 gql '{ tasks(first:50, where:{plansVia:{id:"'$PLAN'"}, statusNotIn:["done","cancelled"]}){

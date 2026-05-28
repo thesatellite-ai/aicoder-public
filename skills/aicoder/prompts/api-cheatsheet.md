@@ -1,5 +1,7 @@
 # api-cheatsheet — GraphQL examples
 
+> **Enum syntax (read once, never forget).** GraphQL enum literals are **bare identifiers in UPPER_SNAKE_CASE** — `kind: CODE`, never `kind: "code"` or `kind: "CODE"`. Strings get rejected with `Enum cannot represent non-enum value: "X"` even when the spelling is right. When in doubt use variables (the `gql` helper below already supports them) — `kind: $k` with `{"k":"CODE"}` is JSON-safe.
+
 GraphQL endpoint: `https://api.<your-host>/api/dash/query`
 Playground (dev): `https://api.<your-host>/api/dash/query_playground?pkey=<dev-key>`
 
@@ -53,7 +55,7 @@ gql_admin() {
   { edges { node { id title tag body } } } }
 
 # Open gates across all projects
-{ gates(first: 20, where: { status: open })
+{ gates(first: 20, where: { status: OPEN })
   { edges { node { id taskID runID reason requestedAt } } } }
 
 # Activity for a single entity (host = spec)
@@ -70,11 +72,13 @@ gql_admin() {
 mutation {
   createTask(input: {
     projectID: "prj_…"
+    boardID: "brd_…"       # REQUIRED — fetch via { boards(first:1, where:{projectID:"prj_…"}){edges{node{id}}} }
     title: "Migrate auth to JWT"
     description: "## AC\n- [ ] verify in <100ms"
-    kind: code
-    priority: high
-    effort: m
+    kind: CODE             # TaskKind: CODE | BUG | FEATURE | CHORE | RESEARCH | AUTOMATION | DOCS | OPS
+    priority: HIGH         # TaskPriority: NONE | LOW | MEDIUM | HIGH | URGENT
+    effort: M              # TaskEffort:   NONE | S | M | L | XL
+    status: "todo"         # String (not enum): todo | in_progress | done | etc.
   }) { id }
 }
 
@@ -102,7 +106,8 @@ mutation {
     projectID: "prj_…"
     taskID: "tsk_…"
     runID: "run_…"
-    kind: choice
+    kind: CHOICE           # DecisionKind: ADR | BRAINSTORM | CHOICE
+    status: PROPOSED       # DecisionStatus: PROPOSED | ACCEPTED | SUPERSEDED | REJECTED  (no DRAFT)
     title: "Use HS256 over RS256"
     context: "Single auth issuer, want minimal infra."
     decision: "HS256 with rotated shared secret in env."
@@ -112,9 +117,19 @@ mutation {
 }
 
 mutation {
+  createSource(input: {
+    projectID: "prj_…"
+    kind: DIAGRAM           # SourceKind: NOTE | LINK | TRANSCRIPT | CHAT | DIAGRAM | RECORDING | SCREENSHOT
+    bodyFormat: TLDRAW      # SourceBodyFormat: MARKDOWN | PLAIN | CODE | JSON | EXCALIDRAW | TLDRAW
+    title: "Auth flow mockup"
+    body: "{...tldraw JSON...}"
+  }) { id }
+}
+
+mutation {
   createMemory(input: {
     projectID: "prj_…"
-    tag: pattern
+    tag: PATTERN           # MemoryTag: FEEDBACK | LESSON | PATTERN | INCIDENT | NOTE
     title: "ent edges + Optional() pattern"
     body: "When making an edge column optional, use field.Optional().Nillable() AND drop .Required()."
     sourceTaskID: "tsk_…"

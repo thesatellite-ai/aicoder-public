@@ -2,6 +2,30 @@
 
 Per-entity reference for the `Idea` GraphQL type. Generated from `apidash/internal/graph/schemas/*.graphql` — regenerate via `task skill:gen`.
 
+## Enums used by this entity
+
+GraphQL enum literals are **bare identifiers in UPPER_SNAKE_CASE**, never quoted strings. `status: ACCEPTED` not `status: "accepted"`. See SKILL.md → "GraphQL gotchas".
+
+| Enum | Valid values |
+|---|---|
+| `IdeaStatus` | `IDEA`, `ACCEPTED`, `REJECTED`, `SHIPPED`, `DUPLICATE`, `ARCHIVED` |
+
+Lifecycle: starts as `IDEA` (default). Promote to `ACCEPTED` when committing to it (link `convertedTaskID` or `convertedPlanID` at the same time), `SHIPPED` when delivered, `REJECTED` if dropped, `DUPLICATE` if it matches an existing idea.
+
+## Required fields on `createIdea`
+
+**`subject` OR `areaID` is required** — the server rejects with `"createIdea: areaID or subject required"` if both are omitted. `title` is always required separately.
+
+```graphql
+mutation {
+  createIdea(input: {
+    projectID: "prj_…"
+    title: "Idea title"
+    subject: "auth"           # OR areaID, but at least one
+  }) { id }
+}
+```
+
 ## Object type
 
 _Defined in `ent.graphql`._

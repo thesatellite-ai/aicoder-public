@@ -4,6 +4,7 @@ Per-entity pages — object type, inputs, where-filter, enums used, related muta
 
 | Entity | Type | Create | Update | Where |
 |---|---|---|---|---|
+| [`Agent`](./Agent.md) | ✓ | ✓ (via `ensureAgent` — no `create…`) | — | ✓ |
 | [`Area`](./Area.md) | ✓ | ✓ | ✓ | ✓ |
 | [`Board`](./Board.md) | ✓ | ✓ | ✓ | ✓ |
 | [`Comment`](./Comment.md) | ✓ | ✓ | ✓ | ✓ |

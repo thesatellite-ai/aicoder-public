@@ -2,6 +2,40 @@
 
 Per-entity reference for the `Task` GraphQL type. Generated from `apidash/internal/graph/schemas/*.graphql` — regenerate via `task skill:gen`.
 
+## Enums used by this entity
+
+GraphQL enum literals are **bare identifiers in UPPER_SNAKE_CASE**, never quoted strings. `kind: CODE` not `kind: "code"`. See SKILL.md → "GraphQL gotchas".
+
+| Enum | Valid values |
+|---|---|
+| `TaskKind` | `CODE`, `BUG`, `FEATURE`, `CHORE`, `RESEARCH`, `AUTOMATION`, `DOCS`, `OPS`, `QUESTION`, `REQUEST` |
+| `TaskPriority` | `NONE`, `LOW`, `MEDIUM`, `HIGH`, `URGENT` |
+| `TaskEffort` | `NONE`, `S`, `M`, `L`, `XL` |
+| `status` | **String, not enum** — typical values: `todo`, `in_progress`, `done`, `blocked`, `cancelled` |
+
+## Required fields on `createTask`
+
+**`boardID: ID!` is REQUIRED.** Server rejects with `must be defined path:["variable","i","boardID"]` when omitted. Fetch a board ID first:
+
+```graphql
+{ boards(first: 1, where: {projectID: "prj_…"}) { edges { node { id } } } }
+```
+
+Then pass it on createTask alongside `projectID` and `title` (the only other required field):
+
+```graphql
+mutation {
+  createTask(input: {
+    projectID: "prj_…"
+    boardID: "brd_…"      # required
+    title: "…"
+    kind: CODE
+    priority: HIGH
+    effort: M
+  }) { id }
+}
+```
+
 ## Object type
 
 _Defined in `ent.graphql`._

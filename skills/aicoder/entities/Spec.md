@@ -2,6 +2,20 @@
 
 Per-entity reference for the `Spec` GraphQL type. Generated from `apidash/internal/graph/schemas/*.graphql` — regenerate via `task skill:gen`.
 
+## Enums used by this entity
+
+GraphQL enum literals are **bare identifiers in UPPER_SNAKE_CASE**, never quoted strings. `status: ACTIVE` not `status: "active"`. See SKILL.md → "GraphQL gotchas".
+
+| Enum | Valid values |
+|---|---|
+| `SpecStatus` | `DRAFT`, `ACTIVE`, `DONE`, `ARCHIVED` |
+
+Default status on `createSpec` if omitted: `DRAFT`. Promote to `ACTIVE` once approved, `DONE` when the work it describes shipped. `ARCHIVED` is soft-delete (reversible via `unarchiveSpec`).
+
+## Related mutations
+
+Full set on the server: `createSpec`, `updateSpec`, `deleteSpec`, `archiveSpec`, `unarchiveSpec`. The "Related mutations" section below may be out of date — trust the schema fragment in `apidash/internal/graph/schemas/*.graphql`.
+
 ## Object type
 
 _Defined in `ent.graphql`._

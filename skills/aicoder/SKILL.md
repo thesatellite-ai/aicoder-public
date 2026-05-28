@@ -144,6 +144,40 @@ curl -sf -X POST "$AICODER_HOST/api/dash/query" \
 
 That's the standard pattern for every read or mutate. The headers + body are the only things that change per request.
 
+### GraphQL gotchas — read this before writing mutations
+
+1. **Enums are bare identifiers, NOT strings.** `kind: DIAGRAM` is correct; `kind: "DIAGRAM"` returns a confusing `Enum cannot represent non-enum value: "DIAGRAM"` error (yes, even when the value spelling is right — the parser sees a string literal and refuses to coerce it). This bites every agent at least once because every other field IS quoted.
+
+2. **Enum names are UPPER_SNAKE_CASE.** `HIGH`, `CODE`, `MARKDOWN`, `DIAGRAM`, `TLDRAW`. Never `high` / `code` / `markdown`. If the schema declared `enum TaskKind { CODE BUG … }`, you write `kind: CODE`.
+
+3. **Always prefer GraphQL variables for enums.** Variables sidestep both issues — JSON quoting works, and the variable's type tells the server which enum to coerce against. Use this pattern by default for any mutation with enum fields:
+
+```bash
+curl -sf -X POST "$AICODER_HOST/api/dash/query" \
+  -H "Authorization: Bearer $AICODER_KEY" \
+  -H "X-Workspace-Id: $AICODER_WORKSPACE" \
+  -H "X-Project-Id: $AICODER_PROJECT" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "mutation($k: SourceKind!, $f: SourceBodyFormat!) { createSource(input:{projectID:\"prj_…\", kind:$k, bodyFormat:$f, title:\"Mockup\"}) { id } }",
+    "variables": {"k":"DIAGRAM","f":"TLDRAW"}
+  }'
+```
+
+4. **Look up valid enum values before sending — don't reach for "obvious" defaults.** Each entity doc under `entities/` lists the enum types AND their valid values inline (see `Source.md`, `Decision.md`, `Memory.md`). The schema also has the canonical list — introspect (dev) or grep `apidash/internal/graph/schemas/*.graphql`.
+
+Common wrong guesses that look right but aren't:
+
+| Wrong | Right | Where |
+|---|---|---|
+| `status: DRAFT` | `status: PROPOSED` (default) | `DecisionStatus` has no DRAFT — uses `PROPOSED, ACCEPTED, SUPERSEDED, REJECTED` |
+| `tag: pattern` (lowercase) | `tag: PATTERN` | All enum literals are UPPER_SNAKE_CASE, always |
+| `kind: "DIAGRAM"` (quoted) | `kind: DIAGRAM` (bare identifier) | Enums are not strings — see rule 1 |
+| `bodyFormat: TEXT` / `MERMAID` / `SVG` / `HTML` | `MARKDOWN` / `PLAIN` / `CODE` / `JSON` / `EXCALIDRAW` / `TLDRAW` | These are the only `SourceBodyFormat` values |
+| `kind: PROBE` (made up to test) | Pick a real value from the entity doc | Don't use placeholder enum values; the validator surfaces them as "X is not a valid Y" but burns a debug cycle |
+
+The pattern when stuck: don't probe-and-pray. Read the entity doc → find the enum table → pick the value that matches your intent.
+
 ### Endpoint details
 
 ```
@@ -151,7 +185,9 @@ POST   https://api.<your-host>/api/dash/query    # programmatic
 QUERY  ?pkey=<dev-key>                           # dev playground only
 ```
 
-**Author/actor identity:** every mutation that records who did something accepts an explicit `authorUserID` / `actorUserID` / `assigneeAgentID` / `capturedByUserID` / `createdByUserID` field. Pass the agent's user/agent id when calling on its behalf.
+**Author/actor identity:** every mutation that records who did something accepts an explicit `authorUserID` / `actorUserID` / `assigneeAgentID` / `capturedByUserID` / `createdByUserID` / `createdByAgentID` / `capturedByAgentID` field. Pass the agent's user/agent id when calling on its behalf.
+
+> **Register your agent FIRST.** The very first mutation in any session should be `ensureAgent` (idempotent register-or-upsert keyed on `userID + name`). It returns an `agt_…` ID — pass it as `createdByAgentID` / `capturedByAgentID` / `assigneeAgentID` on every subsequent write. **There is no `createAgent` mutation** — `ensureAgent` IS the create path. Skipping this attributes all your work to the human API-key owner instead of the agent that did it. Full recipe: [`entities/Agent.md`](./entities/Agent.md).
 
 **The endpoint is the source of truth.** Anything the Web UI does, you can do — the UI is just a GraphQL client. Live introspection works in dev but is **disabled in production-mode deployments** (returns `{"errors":[{"message":"introspection disabled"}]}`) — in that case fall back to the SDL fragments at `apidash/internal/graph/schemas/*.graphql` and the curated [`API.md`](./API.md) in this skill.
 

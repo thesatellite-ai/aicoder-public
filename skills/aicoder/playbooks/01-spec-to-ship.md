@@ -151,7 +151,7 @@ The full Run cycle is in `02-run-lifecycle.md` — read that next.
 When all tasks under the plan are `done`:
 
 ```bash
-gql 'mutation { updatePlan(id:"'$PLAN'", input:{ status: done }){ id status } }'
+gql 'mutation { updatePlan(id:"'$PLAN'", input:{ status: DONE }){ id status } }'
 ```
 
 Then save a **plan-level postmortem memory** capturing what shipped vs what didn't:

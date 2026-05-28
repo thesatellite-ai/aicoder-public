@@ -2,6 +2,17 @@
 
 Per-entity reference for the `Decision` GraphQL type. Generated from `apidash/internal/graph/schemas/*.graphql` — regenerate via `task skill:gen`.
 
+## Enums used by this entity
+
+GraphQL enum literals are **bare identifiers in UPPER_SNAKE_CASE**, never quoted strings. `kind: CHOICE` not `kind: "choice"` or `kind: CHOICE`. See SKILL.md → "GraphQL gotchas".
+
+| Enum | Valid values |
+|---|---|
+| `DecisionKind` | `ADR`, `BRAINSTORM`, `CHOICE` |
+| `DecisionStatus` | `PROPOSED`, `ACCEPTED`, `SUPERSEDED`, `REJECTED` — **NOT `DRAFT`** (common mistake; server returns `"DRAFT is not a valid DecisionStatus"`) |
+
+Default status on `createDecision` if omitted: **`ACCEPTED`** (verified by live probe). Set `status: PROPOSED` explicitly when you want a draft awaiting approval. `SUPERSEDED` is reserved for decisions replaced by a newer one — pair with a `supersededBy` reference if your input shape exposes it.
+
 ## Object type
 
 _Defined in `ent.graphql`._

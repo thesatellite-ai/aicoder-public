@@ -2,6 +2,28 @@
 
 Per-entity reference for the `Area` GraphQL type. Generated from `apidash/internal/graph/schemas/*.graphql` — regenerate via `task skill:gen`.
 
+## Enums used by this entity
+
+GraphQL enum literals are **bare identifiers in UPPER_SNAKE_CASE**, never quoted strings. `status: WIP` not `status: "wip"`. See SKILL.md → "GraphQL gotchas".
+
+| Enum | Valid values |
+|---|---|
+| `AreaStatus` | `PLANNED`, `WIP`, `LIVE`, `ON_HOLD`, `DEPRECATED` |
+
+## Required fields on `createArea`
+
+Both `name: String!` AND `slug: String!` are required. Server rejects with `must be defined path:["variable","i","slug"]` when slug is omitted. Slug should be url-safe (lowercase letters, digits, hyphens).
+
+```graphql
+mutation {
+  createArea(input: {
+    projectID: "prj_…"
+    name: "Authentication"
+    slug: "auth"            # required, url-safe
+  }) { id }
+}
+```
+
 ## Object type
 
 _Defined in `ent.graphql`._

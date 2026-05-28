@@ -2,6 +2,22 @@
 
 Per-entity reference for the `Memory` GraphQL type. Generated from `apidash/internal/graph/schemas/*.graphql` — regenerate via `task skill:gen`.
 
+## Enums used by this entity
+
+GraphQL enum literals are **bare identifiers in UPPER_SNAKE_CASE**, never quoted strings. `tag: PATTERN` not `tag: "pattern"` or `tag: pattern`. See SKILL.md → "GraphQL gotchas".
+
+| Enum | Valid values |
+|---|---|
+| `MemoryTag` | `FEEDBACK`, `LESSON`, `PATTERN`, `INCIDENT`, `NOTE` |
+
+Pick by intent:
+
+- `LESSON` — generalisable rule learned the hard way ("always reset position on …")
+- `PATTERN` — reusable code shape ("for ent edges, use `field.Optional().Nillable()` + drop `.Required()`")
+- `INCIDENT` — post-mortem of a specific failure
+- `FEEDBACK` — user/agent comment to remember
+- `NOTE` — anything else worth remembering
+
 ## Object type
 
 _Defined in `ent.graphql`._
