@@ -2,6 +2,8 @@
 
 Per-entity reference for the `TaskList` GraphQL type. Generated from `apidash/internal/graph/schemas/*.graphql` — regenerate via `task skill:gen`.
 
+> ⚠ **TaskList uses `name`, NOT `title`.** Confusingly inconsistent with sibling entities — Task / Spec / Plan / Decision / Memory / Idea / Source / Notification / RunStep all use `title: String!`. TaskList, Area, Project, Label, Tag, Agent, Board, ListView, User, … use `name: String!`. Querying `taskLists { title }` fails with `Cannot query field "title" on type "TaskList"`. The split is per-entity, not by category. When in doubt, check the entity doc.
+
 ## Object type
 
 _Defined in `ent.graphql`._

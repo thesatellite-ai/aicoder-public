@@ -175,8 +175,18 @@ Common wrong guesses that look right but aren't:
 | `kind: "DIAGRAM"` (quoted) | `kind: DIAGRAM` (bare identifier) | Enums are not strings — see rule 1 |
 | `bodyFormat: TEXT` / `MERMAID` / `SVG` / `HTML` | `MARKDOWN` / `PLAIN` / `CODE` / `JSON` / `EXCALIDRAW` / `TLDRAW` | These are the only `SourceBodyFormat` values |
 | `kind: PROBE` (made up to test) | Pick a real value from the entity doc | Don't use placeholder enum values; the validator surfaces them as "X is not a valid Y" but burns a debug cycle |
+| `taskLists { title }` | `taskLists { name }` | TaskList uses `name`, not `title`. Schema is split — see "name vs title" table below. |
 
-The pattern when stuck: don't probe-and-pray. Read the entity doc → find the enum table → pick the value that matches your intent.
+5. **`name` vs `title` — the schema is split, don't assume.** Sibling entities use different field names for the human-readable label:
+
+| Field | Entities |
+|---|---|
+| `title: String!` | `Decision`, `Idea`, `Memory`, `Notification`, `Plan`, `RunStep`, `Source`, `Spec`, `Task` |
+| `name: String!` | `Agent`, `Area`, `Board`, `Designation`, `InstalledApp`, `Label`, `ListView`, `MarkdownFile`, `Project`, `Tag`, `TaskList`, `TaskTemplate`, `TermSession`, `User`, `WorkspaceLayout` |
+
+Querying the wrong one fails with `Cannot query field "X" on type "Y"`. There's no pattern to memorise — when in doubt, open the matching `entities/<Type>.md` doc and check the object type definition at the top.
+
+The pattern when stuck: don't probe-and-pray. Read the entity doc → find the enum table → pick the value / field that matches your intent.
 
 ### Endpoint details
 
