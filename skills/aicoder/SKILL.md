@@ -471,6 +471,7 @@ Detail routes (any tab links into these):
 - `/p/<planID>` — plan detail with mini kanban, runs feed, decisions/memories/backlinks, activity, comments
 - `/d/<decisionID>` — decision detail with verdict box, "where this lives" rail, backlinks, activity, comments
 - `/m/<memoryID>` — memory detail with source, related-by-tag, backlinks, activity, comments
+- `/r/<runID>` — run detail: outcome + cost/token/duration meta, the plan checklist (read-only), reviews, and media attachments (proof / screenshot / log / file). Reached from a task page's run row via "Open". See `playbooks/09-media-attachments.md` to attach files via the API.
 
 **Power moves in the UI:**
 - `⌘K` / `Ctrl+K` — palette. Search anything; type `+ <title>` to create; `+spec foo` / `+task fix login` for typed creation.
@@ -518,6 +519,7 @@ The playbooks are themed and progressive — each builds on the prior. Read at l
 - `playbooks/05-recovery.md` — when things go wrong: run failure retry, step-blocked-with-gate, review rejection loop, plan replan, stuck→ask-user, lost session recovery, abandoned-run GC.
 - `playbooks/06-claude-code-orchestration.md` — Claude Code specific: planner vs executor session shape, session-start ritual, session-end checkpoint, when to use UI vs API, bash helper to source.
 - `playbooks/07-real-world-walkthrough.md` — concrete end-to-end story: how a human + 2 agents build "streaming chat UI with tool calls + citations" through the system. Every artifact lives in the demo project (`prj_fi12w0suhyve0n8ce`) — clickable links throughout.
+- `playbooks/09-media-attachments.md` — upload + attach files to any entity (most usefully **proof on a run**): the two media REST endpoints, `attachMedia` / `detachMedia` / `mediaAttachmentsByHost`, the opaque `hostType` convention, the run role set (`proof` / `screenshot` / `log` / `file`), and the agent "finish run with proof" flow.
 
 ### `prompts/` — narrow single-purpose templates
 
@@ -529,6 +531,7 @@ Use when you know exactly which operation you need. Cross-references back to pla
 - `prompts/capture-decision.md` — ADR / choice / brainstorm template
 - `prompts/run-checklist.md` — structured run plan + step lifecycle
 - `prompts/postmortem.md` — wrap up a run with memory + decision
+- `prompts/attach-proof.md` — upload + attach a file (proof / log / screenshot) to a run in two curl calls
 
 ## Backend code map (when you need to extend things)
 
