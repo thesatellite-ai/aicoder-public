@@ -9,7 +9,7 @@ GraphQL enum literals are **bare identifiers**, never quoted strings. `kind: DIA
 | Enum | Valid values |
 |---|---|
 | `SourceKind` | `NOTE`, `LINK`, `TRANSCRIPT`, `CHAT`, `DIAGRAM`, `RECORDING`, `SCREENSHOT` |
-| `SourceBodyFormat` | `MARKDOWN`, `PLAIN`, `CODE`, `JSON`, `EXCALIDRAW`, `TLDRAW` |
+| `SourceBodyFormat` | `MARKDOWN`, `PLAIN`, `CODE`, `JSON`, `EXCALIDRAW`, `TLDRAW`, `STATEMACHINE` |
 
 Common pairings:
 
@@ -18,6 +18,7 @@ Common pairings:
 - Markdown note → `kind: NOTE`, `bodyFormat: MARKDOWN`
 - Web link → `kind: LINK`, `bodyFormat: PLAIN`
 - Chat transcript → `kind: CHAT`, `bodyFormat: MARKDOWN`
+- XState state machine → `kind: NOTE`, `bodyFormat: STATEMACHINE`
 
 ## Body content shape per `bodyFormat` (read this before writing `body`)
 
@@ -43,6 +44,27 @@ A JSON document — you stringify whatever object you want and store the resulti
 ```json
 {"any":"shape","you":["want"],"nested":{"is":"fine"}}
 ```
+
+### `STATEMACHINE`
+
+An **XState v5 statechart**, rendered as an interactive diagram (graph + live simulator + self-running tests), laid out with ELK like Stately. `body` is a JSON string in one of two shapes:
+
+```jsonc
+// preferred — machine + optional tests
+{ "machine": <xstate-config>, "tests": [ { "name": "...", "steps": [{ "event": "E" }], "expect": { "state": "X" } } ] }
+// also accepted — a bare XState config (tests default to [])
+<xstate-config>
+```
+
+Supported XState features (all rendered as edges/nodes): `id`, `description`, `initial`; `states` (a state with its own `states` is **compound**; `type:"final"` for finals; `{}` is a valid leaf); `on` event transitions (array of guarded branches, first-match-wins, or `{EVENT:"target"}` shorthand); **`after`** delayed transitions; **`onDone`** on compounds; `guard` (string or `{type}`); `actions` (string / `{type,params}` / array); targets as a sibling name or an absolute id `#MachineId.PARENT.CHILD`.
+
+Minimal example body:
+
+```json
+{"machine":{"id":"toggle","initial":"off","states":{"off":{"description":"idle","on":{"FLIP":"on"}},"on":{"on":{"FLIP":"off"}}}},"tests":[{"name":"flip on","steps":[{"event":"FLIP"}],"expect":{"state":"on"}}]}
+```
+
+The renderer's contract (arrow direction, node order, hierarchy, label placement) is documented and regression-tested in the frontend repo at `src/components/smart-rich-editor/parts/statemachine/FLOW.md`.
 
 ### `EXCALIDRAW`
 
