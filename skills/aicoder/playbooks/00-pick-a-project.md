@@ -6,7 +6,7 @@ The skill activation makes you a participant in the aicoder system. **Before any
 
 Any action that touches a project-scoped entity:
 
-- Creating, reading, updating, deleting any Task / Plan / Spec / Decision / Memory / Idea / Source / TermSession / etc.
+- Creating, reading, updating, deleting any Task / Plan / Spec / Decision / Memory / Idea / Source / Scratch / etc.
 - Running aicoder mutations that take `projectID` or run inside a project context.
 - Looking up "open tasks", "recent decisions", "the spec for X" — anything project-bounded.
 

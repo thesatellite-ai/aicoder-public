@@ -182,7 +182,7 @@ Common wrong guesses that look right but aren't:
 | Field | Entities |
 |---|---|
 | `title: String!` | `Decision`, `Idea`, `Memory`, `Notification`, `Plan`, `RunStep`, `Source`, `Spec`, `Task` |
-| `name: String!` | `Agent`, `Area`, `Board`, `Designation`, `InstalledApp`, `Label`, `ListView`, `MarkdownFile`, `Project`, `Tag`, `TaskList`, `TaskTemplate`, `TermSession`, `User`, `WorkspaceLayout` |
+| `name: String!` | `Agent`, `Area`, `Board`, `Designation`, `Label`, `ListView`, `Project`, `Tag`, `TaskList`, `TaskTemplate`, `User`, `WorkspaceLayout` |
 
 Querying the wrong one fails with `Cannot query field "X" on type "Y"`. There's no pattern to memorise — when in doubt, open the matching `entities/<Type>.md` doc and check the object type definition at the top.
 

@@ -1,6 +1,6 @@
 # API.md — exhaustive GraphQL surface
 
-Auto-generated reference of every field, input, enum, and object type in the aicoder GraphQL schema. Source: `apidash/internal/graph/schemas/*.graphql`. Regenerate with `task skill:gen`.
+Auto-generated reference of every field, input, enum, and object type in the aicoder GraphQL schema. Source: `modules/apidash/internal/graph/schemas/*.graphql`. Regenerate with `task skill:gen`.
 
 **Endpoint:** `POST /api/dash/query` · **Auth:** see [`SKILL.md`](./SKILL.md) → Auth (user API key via `task aicoder:apikey:create` · session JWT · `X-Internal-Key`).
 
@@ -12,18 +12,7 @@ Auto-generated reference of every field, input, enum, and object type in the aic
 
 ## Queries (by SDL fragment)
 
-### appmonitor.graphql (4)
-
-```graphql
-  """Check whether specific tools are installed (DB lookup with PATH fallback)."""
-  checkTools(names: [String!]!): [ToolCheck!]!
-  """Search installed apps by name substring (case-insensitive)."""
-  searchApps(query: String!, limit: Int): [InstalledApp!]!
-  """Structured environment summary grouped by category (for AI agent context injection)."""
-  environmentReport: JSON!
-```
-
-### ent.graphql (41)
+### ent.graphql (39)
 
 ```graphql
   """
@@ -96,32 +85,6 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     """
     where: AgentWhereInput
   ): AgentConnection!
-  appScanLogs(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: Cursor
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: Cursor
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-    """
-    Ordering options for AppScanLogs returned from the connection.
-    """
-    orderBy: [AppScanLogOrder!]
-    """
-    Filtering options for AppScanLogs returned from the connection.
-    """
-    where: AppScanLogWhereInput
-  ): AppScanLogConnection!
   areas(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -330,32 +293,6 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     """
     where: IdeaWhereInput
   ): IdeaConnection!
-  installedApps(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: Cursor
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: Cursor
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-    """
-    Ordering options for InstalledApps returned from the connection.
-    """
-    orderBy: [InstalledAppOrder!]
-    """
-    Filtering options for InstalledApps returned from the connection.
-    """
-    where: InstalledAppWhereInput
-  ): InstalledAppConnection!
   labels(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -460,32 +397,6 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     """
     where: ListViewIncludeWhereInput
   ): ListViewIncludeConnection!
-  markdownFiles(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: Cursor
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: Cursor
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-    """
-    Ordering options for MarkdownFiles returned from the connection.
-    """
-    orderBy: [MarkdownFileOrder!]
-    """
-    Filtering options for MarkdownFiles returned from the connection.
-    """
-    where: MarkdownFileWhereInput
-  ): MarkdownFileConnection!
   memories(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -720,6 +631,32 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     """
     where: RunStepWhereInput
   ): RunStepConnection!
+  scratches(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+    """
+    Ordering options for Scratches returned from the connection.
+    """
+    orderBy: [ScratchOrder!]
+    """
+    Filtering options for Scratches returned from the connection.
+    """
+    where: ScratchWhereInput
+  ): ScratchConnection!
   sources(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -798,6 +735,32 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     """
     where: TagWhereInput
   ): TagConnection!
+  taggables(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+    """
+    Ordering options for Taggables returned from the connection.
+    """
+    orderBy: [TaggableOrder!]
+    """
+    Filtering options for Taggables returned from the connection.
+    """
+    where: TaggableWhereInput
+  ): TaggableConnection!
   tasks(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -928,32 +891,6 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     """
     where: TaskTemplateWhereInput
   ): TaskTemplateConnection!
-  termSessions(
-    """
-    Returns the elements in the list that come after the specified cursor.
-    """
-    after: Cursor
-    """
-    Returns the first _n_ elements from the list.
-    """
-    first: Int
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: Cursor
-    """
-    Returns the last _n_ elements from the list.
-    """
-    last: Int
-    """
-    Ordering options for TermSessions returned from the connection.
-    """
-    orderBy: [TermSessionOrder!]
-    """
-    Filtering options for TermSessions returned from the connection.
-    """
-    where: TermSessionWhereInput
-  ): TermSessionConnection!
   users(
     """
     Returns the elements in the list that come after the specified cursor.
@@ -1040,7 +977,7 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   ping: String!
 ```
 
-### tasksystem.graphql (13)
+### tasksystem.graphql (15)
 
 ```graphql
   """
@@ -1058,6 +995,7 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     search: String
     statusIn: [String!]
     priorityIn: [String!]
+    tagsIn: [String!]
   ): [Task!]!
   """Total task count for a list. Honours the same search + filter args as
      resolveTaskList so the count matches the visible set."""
@@ -1067,6 +1005,7 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     search: String
     statusIn: [String!]
     priorityIn: [String!]
+    tagsIn: [String!]
   ): Int!
   """Batched resolution for the lists overview page — returns the project's
      visible lists together with their first `perListLimit` tasks plus
@@ -1080,6 +1019,9 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     search: String
     statusIn: [String!]
     priorityIn: [String!]
+    """Tag names (case-insensitive) — task must carry EVERY listed tag to
+       remain in the result (AND semantics, matches the picker UX)."""
+    tagsIn: [String!]
   ): ProjectListsResolution!
   """Resolve a saved view (filter + manual includes − manual excludes) to its
      visible task set. Pagination + filters mirror resolveTaskList."""
@@ -1091,6 +1033,7 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     search: String
     statusIn: [String!]
     priorityIn: [String!]
+    tagsIn: [String!]
   ): [Task!]!
   """Total visible task count for a view (same filter args as resolveListView)."""
   resolveListViewCount(
@@ -1099,6 +1042,7 @@ Auto-generated reference of every field, input, enum, and object type in the aic
     search: String
     statusIn: [String!]
     priorityIn: [String!]
+    tagsIn: [String!]
   ): Int!
   """
   Inbox for the current viewer. v1 is single-channel (Web UI). userID is
@@ -1115,13 +1059,9 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   kind.
   """
   linkedTasks(taskID: ID!): LinkedTasks!
-```
-
-### term.graphql (2)
-
-```graphql
-  """Fetch a specific layout by project+name. Null if none saved."""
-  workspaceLayoutByName(projectId: ID!, name: String!): WorkspaceLayout
+  """Task counts per tag for one project, ordered by total desc then name.
+     Tags with no attached tasks are omitted. Excludes archived tasks."""
+  tagTaskCounts(projectID: ID!): [TagTaskCount!]!
 ```
 
 ### user_extended.graphql (4)
@@ -1141,27 +1081,18 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   getUser(id: ID!): User @deprecated(reason: "Use user(id) query instead. Will be removed in v2.0")
 ```
 
-### workspace.graphql (3)
+### workspace_layout.graphql (2)
 
 ```graphql
-  """Get file tree children at a path level within a directory."""
-  markdownTree(directoryId: ID!, path: String): [TreeEntry!]!
-  """Search markdown files across a project by name or path."""
-  searchMarkdownFiles(projectId: ID!, query: String!): [SearchResult!]!
+  """Fetch a specific layout by project+name. Null if none saved."""
+  workspaceLayoutByName(projectId: ID!, name: String!): WorkspaceLayout
 ```
 
-**Total queries: 68**
+**Total queries: 61**
 
 ---
 
 ## Mutations (by SDL fragment)
-
-### appmonitor.graphql (2)
-
-```graphql
-  """Trigger a full resync. Pass sources to scan only those, or omit for all."""
-  rescanApps(sources: [InstalledAppSource!]): AppScanLog!
-```
 
 ### schema.graphql (1)
 
@@ -1169,7 +1100,25 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   ping: String!
 ```
 
-### tasksystem.graphql (82)
+### scratchpad.graphql (6)
+
+```graphql
+  """Create a new scratch tab in a project."""
+  createScratch(input: CreateScratchInput!): Scratch!
+  """Update a scratch — used for debounced autosave (title/body/language),
+     drag-reorder (position) and pin toggling (pinned)."""
+  updateScratch(id: ID!, input: UpdateScratchInput!): Scratch!
+  """Close a scratch tab — soft-archive into the trash drawer. The server
+     stamps archivedAt so clients never pass timestamps."""
+  archiveScratch(id: ID!): Scratch!
+  """Reopen a scratch from the trash drawer (clears archivedAt)."""
+  restoreScratch(id: ID!): Scratch!
+  """Permanently delete a scratch. Irreversible — the UI only exposes this from
+     the trash drawer, behind a confirmation. Returns true on success."""
+  deleteScratch(id: ID!): Boolean!
+```
+
+### tasksystem.graphql (103)
 
 ```graphql
   voteIdea(id: ID!): Idea!
@@ -1180,6 +1129,12 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   updateArea(id: ID!, input: UpdateAreaInput!): Area!
   ensureAreaByName(projectID: ID!, name: String!): Area!
   createTask(input: CreateTaskInput!): Task!
+  """Create many tasks in ONE transaction (all or none) and return them in
+     input order — the "Paste tasks" dialog. Same invariants as createTask
+     (subtasks never carry an owner list; a missing owner list defaults to the
+     project Inbox). Positions are taken from each input as given. At most 500
+     inputs per call."""
+  createTasks(input: [CreateTaskInput!]!): [Task!]!
   updateTask(id: ID!, input: UpdateTaskInput!): Task!
   createBoard(input: CreateBoardInput!): Board!
   updateBoard(id: ID!, input: UpdateBoardInput!): Board!
@@ -1189,6 +1144,7 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   updateTaskList(id: ID!, input: UpdateTaskListInput!): TaskList!
   moveTask(taskID: ID!, status: String!, position: Float!): Task!
   moveTaskToList(taskID: ID!, ownerListID: ID!): Task!
+  reorderTaskInList(taskID: ID!, ownerListID: ID!, beforeTaskID: ID): Task!
   assignTask(taskID: ID!, userID: ID, agentID: ID): Task!
   """Add a user to the task's collaborators (many-to-many junction). Idempotent —
      re-adding an active assignee returns the existing row."""
@@ -1200,8 +1156,23 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   createComment(commentableType: CommentableType!, commentableID: ID!, body: String!, authorUserID: ID, authorAgentID: ID): Comment!
   updateComment(id: ID!, body: String!): Comment!
   deleteComment(id: ID!): Boolean!
-  addTag(taggableType: TaggableType!, taggableID: ID!, name: String!, createdByUserID: ID, createdByAgentID: ID): Tag!
-  removeTag(taggableType: TaggableType!, taggableID: ID!, name: String!): Boolean!
+  attachTag(taggableType: TaggableType!, taggableID: ID!, name: String!, createdByUserID: ID, createdByAgentID: ID): Taggable!
+  detachTag(taggableType: TaggableType!, taggableID: ID!, name: String!): Boolean!
+  """Create or return a workspace Tag library row. Lookup is case-insensitive
+  on name within the workspace; `color` may be a hex string like #7c3aed
+  or null to fall back to the deterministic hash palette."""
+  ensureTag(workspaceID: ID!, name: String!, color: String, appliesTo: [String!]): Tag!
+  """Rename / recolor / change applies-to filter. Rename is case-insensitive
+  collision-detected — returns an error if another Tag in the workspace
+  already owns the new name."""
+  updateTag(id: ID!, name: String, color: String, appliesTo: [String!]): Tag!
+  """Delete a Tag and every Taggables pointing at it (entcascade,
+  transactional)."""
+  deleteTag(id: ID!): Boolean!
+  """Merge `fromID` into `intoID`: re-points every Taggables whose
+  tag_id matches the source onto the destination, then deletes the source
+  Tag. Both must be in the same workspace."""
+  mergeTag(fromID: ID!, intoID: ID!): Tag!
   attachLabel(taskID: ID!, labelID: ID!): Task!
   detachLabel(taskID: ID!, labelID: ID!): Task!
   addTaskLink(taskID: ID!, targetTaskID: ID!, kind: TaskLinkKind!): TaskLink!
@@ -1244,18 +1215,28 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   postReview(input: PostReviewInput!): Review!
   createIdea(input: CreateIdeaInput!): Idea!
   updateIdea(id: ID!, input: UpdateIdeaInput!): Idea!
+  archiveIdea(id: ID!): Idea!
+  unarchiveIdea(id: ID!): Idea!
   createSpec(input: CreateSpecInput!): Spec!
   updateSpec(id: ID!, input: UpdateSpecInput!): Spec!
+  archiveSpec(id: ID!): Spec!
+  unarchiveSpec(id: ID!): Spec!
   createPlan(input: CreatePlanInput!): Plan!
   updatePlan(id: ID!, input: UpdatePlanInput!): Plan!
   approvePlan(id: ID!, approvedByUserID: ID): Plan!
   activatePlan(id: ID!): Plan!
+  archivePlan(id: ID!): Plan!
+  unarchivePlan(id: ID!): Plan!
   addTaskToPlan(planID: ID!, taskID: ID!, position: Float): Boolean!
   removeTaskFromPlan(planID: ID!, taskID: ID!): Boolean!
   createDecision(input: CreateDecisionInput!): Decision!
   updateDecision(id: ID!, input: UpdateDecisionInput!): Decision!
+  archiveDecision(id: ID!): Decision!
+  unarchiveDecision(id: ID!): Decision!
   createMemory(input: CreateMemoryInput!): Memory!
   updateMemory(id: ID!, input: UpdateMemoryInput!): Memory!
+  archiveMemory(id: ID!): Memory!
+  unarchiveMemory(id: ID!): Memory!
   requestGate(input: RequestGateInput!): Gate!
   approveGate(id: ID!, decidedByUserID: ID): Gate!
   rejectGate(id: ID!, decidedByUserID: ID, reason: String): Gate!
@@ -1269,31 +1250,7 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   unlinkSource(sourceID: ID!, sourceableType: SourceableType!, sourceableID: ID!): Boolean!
 ```
 
-### term.graphql (11)
-
-```graphql
-  """Upsert a WorkspaceLayout for a project+name. Returns the saved row."""
-  saveWorkspaceLayout(input: SaveWorkspaceLayoutInput!): WorkspaceLayout!
-  """Create a new terminal session. Starts a PTY and registers it in the DB."""
-  createTermSession(input: CreateTermSessionInput!): TermSession!
-  """Rename a terminal session (label only — does not touch PTY)."""
-  renameTermSession(id: ID!, name: String!): TermSession!
-  """Resize a terminal session (forwards SIGWINCH to the PTY)."""
-  resizeTermSession(id: ID!, cols: Int!, rows: Int!): TermSession!
-  """Kill a running terminal session. Idempotent — no-op if already exited."""
-  killTermSession(id: ID!): TermSession!
-  """Fork an exited or running terminal session — spawns a fresh PTY with the
-  same project, shell, and cwd. The old session and its cast log are unchanged.
-  Returns the newly created session."""
-  forkTermSession(id: ID!): TermSession!
-  """Reconcile the DB status of terminal sessions against actual process liveness.
-  Scans every row currently marked starting/running/detached and, for rows whose
-  PID is dead (or unknown), flips the status to exited or orphaned. Useful after
-  a hard API restart that skipped the startup sweep, or to clean up stuck rows."""
-  reconcileTermSessions: TermReconcileResult!
-```
-
-### workspace.graphql (15)
+### workspace.graphql (13)
 
 ```graphql
   """Create a new project"""
@@ -1308,14 +1265,10 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   updateProjectDirectory(id: ID!, input: UpdateProjectDirectoryInput!): ProjectDirectory!
   """Delete a project directory"""
   deleteProjectDirectory(id: ID!): Boolean!
-  """Scan a project directory for markdown files"""
-  scanProjectDirectory(id: ID!): ScanResult!
   """Reorder project directories. Pass ordered list of directory IDs."""
   reorderProjectDirectories(projectId: ID!, directoryIds: [ID!]!): Boolean!
   """Reveal a path in the OS file manager (Finder/Explorer). Selects the file."""
   revealInFinder(path: String!): Boolean!
-  """Save markdown file content to disk."""
-  saveMarkdownFile(fileId: ID!, content: String!): Boolean!
   """Create a designation"""
   createDesignation(input: CreateDesignationInput!): Designation!
   """Update a designation"""
@@ -1326,11 +1279,18 @@ Auto-generated reference of every field, input, enum, and object type in the aic
   updateProjectMember(id: ID!, input: UpdateProjectMemberInput!): ProjectMember!
 ```
 
-**Total mutations: 111**
+### workspace_layout.graphql (2)
+
+```graphql
+  """Upsert a WorkspaceLayout for a project+name. Returns the saved row."""
+  saveWorkspaceLayout(input: SaveWorkspaceLayoutInput!): WorkspaceLayout!
+```
+
+**Total mutations: 125**
 
 ---
 
-## Object types (125)
+## Object types (115)
 
 ### `Activity`  <sub>ent.graphql</sub>
 
@@ -1440,60 +1400,6 @@ type AgentEdge {
   The item at the end of the edge.
   """
   node: Agent
-  """
-  A cursor for use in pagination.
-  """
-  cursor: Cursor!
-}
-```
-
-### `AppScanLog`  <sub>ent.graphql</sub>
-
-```graphql
-type AppScanLog implements Node {
-  id: ID!
-  workspaceID: String
-  createdAt: Time
-  updatedAt: Time
-  scanType: AppScanLogScanType!
-  sourcesScanned: [String!]
-  totalDetected: Int!
-  added: Int!
-  removed: Int!
-  updated: Int!
-  unchanged: Int!
-  durationMs: Int!
-  errors: [String!]
-}
-```
-
-### `AppScanLogConnection`  <sub>ent.graphql</sub>
-
-```graphql
-type AppScanLogConnection {
-  """
-  A list of edges.
-  """
-  edges: [AppScanLogEdge]
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-  """
-  Identifies the total count of items in the connection.
-  """
-  totalCount: Int!
-}
-```
-
-### `AppScanLogEdge`  <sub>ent.graphql</sub>
-
-```graphql
-type AppScanLogEdge {
-  """
-  The item at the end of the edge.
-  """
-  node: AppScanLog
   """
   A cursor for use in pagination.
   """
@@ -1747,6 +1653,7 @@ type Decision implements Node {
   attachmentID: String
   createdByUserID: String
   createdByAgentID: String
+  archivedAt: Time
   activities: [Activity!]
 }
 ```
@@ -1909,6 +1816,7 @@ type Idea implements Node {
   convertedTaskID: ID
   convertedPlanID: ID
   createdByUserID: String
+  archivedAt: Time
   project: Project!
   area: Area
   convertedTask: Task
@@ -1960,65 +1868,6 @@ type InboxBadges {
   mentions: Int!
   failures: Int!
   assignments: Int!
-}
-```
-
-### `InstalledApp`  <sub>ent.graphql</sub>
-
-```graphql
-type InstalledApp implements Node {
-  id: ID!
-  workspaceID: String
-  createdAt: Time
-  updatedAt: Time
-  name: String!
-  displayName: String
-  version: String
-  previousVersion: String
-  installPath: String
-  installMethod: InstalledAppInstallMethod!
-  source: InstalledAppSource!
-  category: InstalledAppCategory!
-  status: InstalledAppStatus!
-  firstDetectedAt: Time!
-  lastSeen: Time!
-  lastChecked: Time!
-  removedAt: Time
-  metadata: Map
-}
-```
-
-### `InstalledAppConnection`  <sub>ent.graphql</sub>
-
-```graphql
-type InstalledAppConnection {
-  """
-  A list of edges.
-  """
-  edges: [InstalledAppEdge]
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-  """
-  Identifies the total count of items in the connection.
-  """
-  totalCount: Int!
-}
-```
-
-### `InstalledAppEdge`  <sub>ent.graphql</sub>
-
-```graphql
-type InstalledAppEdge {
-  """
-  The item at the end of the edge.
-  """
-  node: InstalledApp
-  """
-  A cursor for use in pagination.
-  """
-  cursor: Cursor!
 }
 ```
 
@@ -2244,60 +2093,6 @@ type ListViewIncludeEdge {
 }
 ```
 
-### `MarkdownFile`  <sub>ent.graphql</sub>
-
-```graphql
-type MarkdownFile implements Node {
-  id: ID!
-  workspaceID: String
-  createdAt: Time
-  updatedAt: Time
-  projectID: ID!
-  projectDirectoryID: ID!
-  relativePath: String!
-  name: String!
-  extension: String!
-  sizeBytes: Int
-  modifiedAt: Time
-  projectDirectory: ProjectDirectory!
-  project: Project!
-}
-```
-
-### `MarkdownFileConnection`  <sub>ent.graphql</sub>
-
-```graphql
-type MarkdownFileConnection {
-  """
-  A list of edges.
-  """
-  edges: [MarkdownFileEdge]
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-  """
-  Identifies the total count of items in the connection.
-  """
-  totalCount: Int!
-}
-```
-
-### `MarkdownFileEdge`  <sub>ent.graphql</sub>
-
-```graphql
-type MarkdownFileEdge {
-  """
-  The item at the end of the edge.
-  """
-  node: MarkdownFile
-  """
-  A cursor for use in pagination.
-  """
-  cursor: Cursor!
-}
-```
-
 ### `MediaAttachment`  <sub>media_host.graphql</sub>
 
 ```graphql
@@ -2317,12 +2112,14 @@ type Memory implements Node {
   updatedAt: Time
   projectID: String!
   tag: MemoryTag!
+  status: MemoryStatus!
   title: String!
   body: String!
   sourceTaskID: String
   sourceRunID: String
   createdByUserID: String
   createdByAgentID: String
+  archivedAt: Time
   activities: [Activity!]
 }
 ```
@@ -2459,6 +2256,7 @@ type Plan implements Node {
   approvedByUserID: String
   approvedAt: Time
   createdByUserID: String
+  archivedAt: Time
   project: Project!
   spec: Spec
   tasks: [Task!]
@@ -2513,8 +2311,6 @@ type Project implements Node {
   description: String
   status: String!
   directories: [ProjectDirectory!]
-  markdownFiles: [MarkdownFile!]
-  termSessions: [TermSession!]
   workspaceLayouts: [WorkspaceLayout!]
   boards: [Board!]
   tasks: [Task!]
@@ -2525,6 +2321,7 @@ type Project implements Node {
   ideas: [Idea!]
   areas: [Area!]
   sources: [Source!]
+  scratches: [Scratch!]
   members: [ProjectMember!]
   listViews: [ListView!]
 }
@@ -2563,7 +2360,6 @@ type ProjectDirectory implements Node {
   isActive: Boolean!
   sortOrder: Int!
   project: Project!
-  markdownFiles: [MarkdownFile!]
 }
 ```
 
@@ -2873,27 +2669,57 @@ type RunStepEdge {
 }
 ```
 
-### `ScanResult`  <sub>workspace.graphql</sub>
+### `Scratch`  <sub>ent.graphql</sub>
 
 ```graphql
-type ScanResult {
-  filesFound: Int!
-  filesAdded: Int!
-  filesUpdated: Int!
-  filesRemoved: Int!
+type Scratch implements Node {
+  id: ID!
+  workspaceID: String
+  createdAt: Time
+  updatedAt: Time
+  projectID: ID!
+  title: String
+  body: String
+  language: String
+  pinned: Boolean!
+  position: Float!
+  archivedAt: Time
+  createdByUserID: String
+  project: Project!
 }
 ```
 
-### `SearchResult`  <sub>workspace.graphql</sub>
+### `ScratchConnection`  <sub>ent.graphql</sub>
 
 ```graphql
-type SearchResult {
-  id: ID!
-  name: String!
-  relativePath: String!
-  extension: String!
-  directoryId: ID!
-  directoryPath: String!
+type ScratchConnection {
+  """
+  A list of edges.
+  """
+  edges: [ScratchEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+```
+
+### `ScratchEdge`  <sub>ent.graphql</sub>
+
+```graphql
+type ScratchEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Scratch
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
 }
 ```
 
@@ -2976,6 +2802,7 @@ type Spec implements Node {
   status: SpecStatus!
   version: Int!
   createdByUserID: String
+  archivedAt: Time
   project: Project!
   plans: [Plan!]
   activities: [Activity!]
@@ -3024,11 +2851,24 @@ type Tag implements Node {
   workspaceID: String
   createdAt: Time
   updatedAt: Time
-  taggableID: String
-  taggableType: String
+  """
+  Display name as the user typed it; lookup is case-insensitive
+  """
   name: String!
+  """
+  Lowercase normalised name; (workspace_id, name_lower) is unique
+  """
+  nameLower: String!
+  """
+  Custom hex color (e.g. #7c3aed). NULL → render from hash palette
+  """
+  color: String
+  """
+  Entity-type allowlist for the picker UI. Empty/NULL = all types
+  """
+  appliesTo: [String!]
   createdByUserID: String
-  createdByAgentID: String
+  taggables: [Taggable!]
 }
 ```
 
@@ -3059,6 +2899,76 @@ type TagEdge {
   The item at the end of the edge.
   """
   node: Tag
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
+}
+```
+
+### `TagTaskCount`  <sub>tasksystem.graphql</sub>
+
+```graphql
+type TagTaskCount {
+  tagID: ID!
+  name: String!
+  """Hex colour override from the tag library; empty when unset."""
+  color: String!
+  total: Int!
+  """Tasks not finished — anything but done/cancelled."""
+  open: Int!
+  """Finished work: done OR cancelled."""
+  done: Int!
+}
+```
+
+### `Taggable`  <sub>ent.graphql</sub>
+
+```graphql
+type Taggable implements Node {
+  id: ID!
+  workspaceID: String
+  createdAt: Time
+  updatedAt: Time
+  taggableID: String
+  taggableType: String
+  """
+  FK to tags.id — the canonical Tag library row
+  """
+  tagID: ID!
+  createdByUserID: String
+  createdByAgentID: String
+  tag: Tag!
+}
+```
+
+### `TaggableConnection`  <sub>ent.graphql</sub>
+
+```graphql
+type TaggableConnection {
+  """
+  A list of edges.
+  """
+  edges: [TaggableEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+```
+
+### `TaggableEdge`  <sub>ent.graphql</sub>
+
+```graphql
+type TaggableEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Taggable
   """
   A cursor for use in pagination.
   """
@@ -3384,105 +3294,6 @@ type TaskTemplateEdge {
 }
 ```
 
-### `TermReconcileResult`  <sub>term.graphql</sub>
-
-```graphql
-type TermReconcileResult {
-  scanned: Int!
-  markedExited: Int!
-  markedOrphaned: Int!
-}
-```
-
-### `TermSession`  <sub>ent.graphql</sub>
-
-```graphql
-type TermSession implements Node {
-  id: ID!
-  workspaceID: String
-  createdAt: Time
-  updatedAt: Time
-  projectID: ID!
-  name: String!
-  shell: String!
-  cwd: String!
-  env: Map
-  agentKind: TermSessionAgentKind!
-  status: TermSessionStatus!
-  exitCode: Int
-  pid: Int
-  hostID: String
-  logPath: String
-  logBytes: Int!
-  logEvents: Int!
-  cols: Int!
-  rows: Int!
-  lastActiveAt: Time!
-  endedAt: Time
-  project: Project!
-}
-```
-
-### `TermSessionConnection`  <sub>ent.graphql</sub>
-
-```graphql
-type TermSessionConnection {
-  """
-  A list of edges.
-  """
-  edges: [TermSessionEdge]
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-  """
-  Identifies the total count of items in the connection.
-  """
-  totalCount: Int!
-}
-```
-
-### `TermSessionEdge`  <sub>ent.graphql</sub>
-
-```graphql
-type TermSessionEdge {
-  """
-  The item at the end of the edge.
-  """
-  node: TermSession
-  """
-  A cursor for use in pagination.
-  """
-  cursor: Cursor!
-}
-```
-
-### `ToolCheck`  <sub>appmonitor.graphql</sub>
-
-```graphql
-type ToolCheck {
-  name: String!
-  installed: Boolean!
-  version: String
-  path: String
-  """Install command suggestion when not installed (e.g. 'brew install node'). Empty if no suggestion known."""
-  installSuggestion: String
-}
-```
-
-### `TreeEntry`  <sub>workspace.graphql</sub>
-
-```graphql
-type TreeEntry {
-  id: ID
-  name: String!
-  path: String!
-  isDir: Boolean!
-  extension: String
-  children: Int!
-}
-```
-
 ### `User`  <sub>ent.graphql</sub>
 
 ```graphql
@@ -3639,7 +3450,7 @@ type WorkspaceLayoutEdge {
 
 ---
 
-## Input types (124)
+## Input types (121)
 
 ### `ActivityOrder`  <sub>ent.graphql</sub>
 
@@ -4109,161 +3920,6 @@ input AgentWhereInput {
   lastSeenAtLTE: Time
   lastSeenAtIsNil: Boolean
   lastSeenAtNotNil: Boolean
-}
-```
-
-### `AppScanLogOrder`  <sub>ent.graphql</sub>
-
-```graphql
-input AppScanLogOrder {
-  """
-  The ordering direction.
-  """
-  direction: OrderDirection! = ASC
-  """
-  The field by which to order AppScanLogs.
-  """
-  field: AppScanLogOrderField!
-}
-```
-
-### `AppScanLogWhereInput`  <sub>ent.graphql</sub>
-
-```graphql
-input AppScanLogWhereInput {
-  not: AppScanLogWhereInput
-  and: [AppScanLogWhereInput!]
-  or: [AppScanLogWhereInput!]
-  """
-  id field predicates
-  """
-  id: ID
-  idNEQ: ID
-  idIn: [ID!]
-  idNotIn: [ID!]
-  idGT: ID
-  idGTE: ID
-  idLT: ID
-  idLTE: ID
-  idEqualFold: ID
-  idContainsFold: ID
-  """
-  workspace_id field predicates
-  """
-  workspaceID: String
-  workspaceIDNEQ: String
-  workspaceIDIn: [String!]
-  workspaceIDNotIn: [String!]
-  workspaceIDGT: String
-  workspaceIDGTE: String
-  workspaceIDLT: String
-  workspaceIDLTE: String
-  workspaceIDContains: String
-  workspaceIDHasPrefix: String
-  workspaceIDHasSuffix: String
-  workspaceIDIsNil: Boolean
-  workspaceIDNotNil: Boolean
-  workspaceIDEqualFold: String
-  workspaceIDContainsFold: String
-  """
-  created_at field predicates
-  """
-  createdAt: Time
-  createdAtNEQ: Time
-  createdAtIn: [Time!]
-  createdAtNotIn: [Time!]
-  createdAtGT: Time
-  createdAtGTE: Time
-  createdAtLT: Time
-  createdAtLTE: Time
-  createdAtIsNil: Boolean
-  createdAtNotNil: Boolean
-  """
-  updated_at field predicates
-  """
-  updatedAt: Time
-  updatedAtNEQ: Time
-  updatedAtIn: [Time!]
-  updatedAtNotIn: [Time!]
-  updatedAtGT: Time
-  updatedAtGTE: Time
-  updatedAtLT: Time
-  updatedAtLTE: Time
-  updatedAtIsNil: Boolean
-  updatedAtNotNil: Boolean
-  """
-  scan_type field predicates
-  """
-  scanType: AppScanLogScanType
-  scanTypeNEQ: AppScanLogScanType
-  scanTypeIn: [AppScanLogScanType!]
-  scanTypeNotIn: [AppScanLogScanType!]
-  """
-  total_detected field predicates
-  """
-  totalDetected: Int
-  totalDetectedNEQ: Int
-  totalDetectedIn: [Int!]
-  totalDetectedNotIn: [Int!]
-  totalDetectedGT: Int
-  totalDetectedGTE: Int
-  totalDetectedLT: Int
-  totalDetectedLTE: Int
-  """
-  added field predicates
-  """
-  added: Int
-  addedNEQ: Int
-  addedIn: [Int!]
-  addedNotIn: [Int!]
-  addedGT: Int
-  addedGTE: Int
-  addedLT: Int
-  addedLTE: Int
-  """
-  removed field predicates
-  """
-  removed: Int
-  removedNEQ: Int
-  removedIn: [Int!]
-  removedNotIn: [Int!]
-  removedGT: Int
-  removedGTE: Int
-  removedLT: Int
-  removedLTE: Int
-  """
-  updated field predicates
-  """
-  updated: Int
-  updatedNEQ: Int
-  updatedIn: [Int!]
-  updatedNotIn: [Int!]
-  updatedGT: Int
-  updatedGTE: Int
-  updatedLT: Int
-  updatedLTE: Int
-  """
-  unchanged field predicates
-  """
-  unchanged: Int
-  unchangedNEQ: Int
-  unchangedIn: [Int!]
-  unchangedNotIn: [Int!]
-  unchangedGT: Int
-  unchangedGTE: Int
-  unchangedLT: Int
-  unchangedLTE: Int
-  """
-  duration_ms field predicates
-  """
-  durationMs: Int
-  durationMsNEQ: Int
-  durationMsIn: [Int!]
-  durationMsNotIn: [Int!]
-  durationMsGT: Int
-  durationMsGTE: Int
-  durationMsLT: Int
-  durationMsLTE: Int
 }
 ```
 
@@ -5252,6 +4908,7 @@ input CreateDecisionInput {
   attachmentID: String
   createdByUserID: String
   createdByAgentID: String
+  archivedAt: Time
   activityIDs: [ID!]
 }
 ```
@@ -5282,6 +4939,7 @@ input CreateIdeaInput {
   votes: Int
   sourceURL: String
   createdByUserID: String
+  archivedAt: Time
   projectID: ID!
   areaID: ID
   convertedTaskID: ID
@@ -5320,21 +4978,6 @@ input CreateListViewInput {
 }
 ```
 
-### `CreateMarkdownFileInput`  <sub>ent.graphql</sub>
-
-```graphql
-input CreateMarkdownFileInput {
-  workspaceID: String
-  relativePath: String!
-  name: String!
-  extension: String!
-  sizeBytes: Int
-  modifiedAt: Time
-  projectDirectoryID: ID!
-  projectID: ID!
-}
-```
-
 ### `CreateMemoryInput`  <sub>ent.graphql</sub>
 
 ```graphql
@@ -5342,12 +4985,14 @@ input CreateMemoryInput {
   workspaceID: String
   projectID: String!
   tag: MemoryTag
+  status: MemoryStatus
   title: String!
   body: String!
   sourceTaskID: String
   sourceRunID: String
   createdByUserID: String
   createdByAgentID: String
+  archivedAt: Time
   activityIDs: [ID!]
 }
 ```
@@ -5363,6 +5008,7 @@ input CreatePlanInput {
   approvedByUserID: String
   approvedAt: Time
   createdByUserID: String
+  archivedAt: Time
   projectID: ID!
   specID: ID
   taskIDs: [ID!]
@@ -5381,7 +5027,6 @@ input CreateProjectDirectoryInput {
   isActive: Boolean
   sortOrder: Int
   projectID: ID!
-  markdownFileIDs: [ID!]
 }
 ```
 
@@ -5394,8 +5039,6 @@ input CreateProjectInput {
   description: String
   status: String
   directoryIDs: [ID!]
-  markdownFileIDs: [ID!]
-  termSessionIDs: [ID!]
   workspaceLayoutIDs: [ID!]
   boardIDs: [ID!]
   taskIDs: [ID!]
@@ -5406,6 +5049,7 @@ input CreateProjectInput {
   ideaIDs: [ID!]
   areaIDs: [ID!]
   sourceIDs: [ID!]
+  scratchIDs: [ID!]
   memberIDs: [ID!]
   listViewIDs: [ID!]
 }
@@ -5421,6 +5065,22 @@ input CreateProjectMemberInput {
   projectID: ID!
   userID: ID!
   designationID: ID!
+}
+```
+
+### `CreateScratchInput`  <sub>ent.graphql</sub>
+
+```graphql
+input CreateScratchInput {
+  workspaceID: String
+  title: String
+  body: String
+  language: String
+  pinned: Boolean
+  position: Float
+  archivedAt: Time
+  createdByUserID: String
+  projectID: ID!
 }
 ```
 
@@ -5460,9 +5120,36 @@ input CreateSpecInput {
   status: SpecStatus
   version: Int
   createdByUserID: String
+  archivedAt: Time
   projectID: ID!
   planIDs: [ID!]
   activityIDs: [ID!]
+}
+```
+
+### `CreateTagInput`  <sub>ent.graphql</sub>
+
+```graphql
+input CreateTagInput {
+  workspaceID: String
+  """
+  Display name as the user typed it; lookup is case-insensitive
+  """
+  name: String!
+  """
+  Lowercase normalised name; (workspace_id, name_lower) is unique
+  """
+  nameLower: String!
+  """
+  Custom hex color (e.g. #7c3aed). NULL → render from hash palette
+  """
+  color: String
+  """
+  Entity-type allowlist for the picker UI. Empty/NULL = all types
+  """
+  appliesTo: [String!]
+  createdByUserID: String
+  taggableIDs: [ID!]
 }
 ```
 
@@ -5559,21 +5246,6 @@ input CreateTaskTemplateInput {
   defaultRequiresReview: Boolean
   descriptionTemplate: String
   archivedAt: Time
-}
-```
-
-### `CreateTermSessionInput`  <sub>term.graphql</sub>
-
-```graphql
-input CreateTermSessionInput {
-  projectId: ID!
-  name: String
-  shell: String
-  cwd: String
-  cols: Int
-  rows: Int
-  env: Map
-  agentKind: TermSessionAgentKind
 }
 ```
 
@@ -5864,6 +5536,19 @@ input DecisionWhereInput {
   createdByAgentIDNotNil: Boolean
   createdByAgentIDEqualFold: String
   createdByAgentIDContainsFold: String
+  """
+  archived_at field predicates
+  """
+  archivedAt: Time
+  archivedAtNEQ: Time
+  archivedAtIn: [Time!]
+  archivedAtNotIn: [Time!]
+  archivedAtGT: Time
+  archivedAtGTE: Time
+  archivedAtLT: Time
+  archivedAtLTE: Time
+  archivedAtIsNil: Boolean
+  archivedAtNotNil: Boolean
   """
   activities edge predicates
   """
@@ -6536,6 +6221,19 @@ input IdeaWhereInput {
   createdByUserIDEqualFold: String
   createdByUserIDContainsFold: String
   """
+  archived_at field predicates
+  """
+  archivedAt: Time
+  archivedAtNEQ: Time
+  archivedAtIn: [Time!]
+  archivedAtNotIn: [Time!]
+  archivedAtGT: Time
+  archivedAtGTE: Time
+  archivedAtLT: Time
+  archivedAtLTE: Time
+  archivedAtIsNil: Boolean
+  archivedAtNotNil: Boolean
+  """
   project edge predicates
   """
   hasProject: Boolean
@@ -6566,250 +6264,6 @@ input InboxFilter {
   projectID: ID
   eventKinds: [NotificationEventKind!]
   limit: Int
-}
-```
-
-### `InstalledAppOrder`  <sub>ent.graphql</sub>
-
-```graphql
-input InstalledAppOrder {
-  """
-  The ordering direction.
-  """
-  direction: OrderDirection! = ASC
-  """
-  The field by which to order InstalledApps.
-  """
-  field: InstalledAppOrderField!
-}
-```
-
-### `InstalledAppWhereInput`  <sub>ent.graphql</sub>
-
-```graphql
-input InstalledAppWhereInput {
-  not: InstalledAppWhereInput
-  and: [InstalledAppWhereInput!]
-  or: [InstalledAppWhereInput!]
-  """
-  id field predicates
-  """
-  id: ID
-  idNEQ: ID
-  idIn: [ID!]
-  idNotIn: [ID!]
-  idGT: ID
-  idGTE: ID
-  idLT: ID
-  idLTE: ID
-  idEqualFold: ID
-  idContainsFold: ID
-  """
-  workspace_id field predicates
-  """
-  workspaceID: String
-  workspaceIDNEQ: String
-  workspaceIDIn: [String!]
-  workspaceIDNotIn: [String!]
-  workspaceIDGT: String
-  workspaceIDGTE: String
-  workspaceIDLT: String
-  workspaceIDLTE: String
-  workspaceIDContains: String
-  workspaceIDHasPrefix: String
-  workspaceIDHasSuffix: String
-  workspaceIDIsNil: Boolean
-  workspaceIDNotNil: Boolean
-  workspaceIDEqualFold: String
-  workspaceIDContainsFold: String
-  """
-  created_at field predicates
-  """
-  createdAt: Time
-  createdAtNEQ: Time
-  createdAtIn: [Time!]
-  createdAtNotIn: [Time!]
-  createdAtGT: Time
-  createdAtGTE: Time
-  createdAtLT: Time
-  createdAtLTE: Time
-  createdAtIsNil: Boolean
-  createdAtNotNil: Boolean
-  """
-  updated_at field predicates
-  """
-  updatedAt: Time
-  updatedAtNEQ: Time
-  updatedAtIn: [Time!]
-  updatedAtNotIn: [Time!]
-  updatedAtGT: Time
-  updatedAtGTE: Time
-  updatedAtLT: Time
-  updatedAtLTE: Time
-  updatedAtIsNil: Boolean
-  updatedAtNotNil: Boolean
-  """
-  name field predicates
-  """
-  name: String
-  nameNEQ: String
-  nameIn: [String!]
-  nameNotIn: [String!]
-  nameGT: String
-  nameGTE: String
-  nameLT: String
-  nameLTE: String
-  nameContains: String
-  nameHasPrefix: String
-  nameHasSuffix: String
-  nameEqualFold: String
-  nameContainsFold: String
-  """
-  display_name field predicates
-  """
-  displayName: String
-  displayNameNEQ: String
-  displayNameIn: [String!]
-  displayNameNotIn: [String!]
-  displayNameGT: String
-  displayNameGTE: String
-  displayNameLT: String
-  displayNameLTE: String
-  displayNameContains: String
-  displayNameHasPrefix: String
-  displayNameHasSuffix: String
-  displayNameIsNil: Boolean
-  displayNameNotNil: Boolean
-  displayNameEqualFold: String
-  displayNameContainsFold: String
-  """
-  version field predicates
-  """
-  version: String
-  versionNEQ: String
-  versionIn: [String!]
-  versionNotIn: [String!]
-  versionGT: String
-  versionGTE: String
-  versionLT: String
-  versionLTE: String
-  versionContains: String
-  versionHasPrefix: String
-  versionHasSuffix: String
-  versionIsNil: Boolean
-  versionNotNil: Boolean
-  versionEqualFold: String
-  versionContainsFold: String
-  """
-  previous_version field predicates
-  """
-  previousVersion: String
-  previousVersionNEQ: String
-  previousVersionIn: [String!]
-  previousVersionNotIn: [String!]
-  previousVersionGT: String
-  previousVersionGTE: String
-  previousVersionLT: String
-  previousVersionLTE: String
-  previousVersionContains: String
-  previousVersionHasPrefix: String
-  previousVersionHasSuffix: String
-  previousVersionIsNil: Boolean
-  previousVersionNotNil: Boolean
-  previousVersionEqualFold: String
-  previousVersionContainsFold: String
-  """
-  install_path field predicates
-  """
-  installPath: String
-  installPathNEQ: String
-  installPathIn: [String!]
-  installPathNotIn: [String!]
-  installPathGT: String
-  installPathGTE: String
-  installPathLT: String
-  installPathLTE: String
-  installPathContains: String
-  installPathHasPrefix: String
-  installPathHasSuffix: String
-  installPathIsNil: Boolean
-  installPathNotNil: Boolean
-  installPathEqualFold: String
-  installPathContainsFold: String
-  """
-  install_method field predicates
-  """
-  installMethod: InstalledAppInstallMethod
-  installMethodNEQ: InstalledAppInstallMethod
-  installMethodIn: [InstalledAppInstallMethod!]
-  installMethodNotIn: [InstalledAppInstallMethod!]
-  """
-  source field predicates
-  """
-  source: InstalledAppSource
-  sourceNEQ: InstalledAppSource
-  sourceIn: [InstalledAppSource!]
-  sourceNotIn: [InstalledAppSource!]
-  """
-  category field predicates
-  """
-  category: InstalledAppCategory
-  categoryNEQ: InstalledAppCategory
-  categoryIn: [InstalledAppCategory!]
-  categoryNotIn: [InstalledAppCategory!]
-  """
-  status field predicates
-  """
-  status: InstalledAppStatus
-  statusNEQ: InstalledAppStatus
-  statusIn: [InstalledAppStatus!]
-  statusNotIn: [InstalledAppStatus!]
-  """
-  first_detected_at field predicates
-  """
-  firstDetectedAt: Time
-  firstDetectedAtNEQ: Time
-  firstDetectedAtIn: [Time!]
-  firstDetectedAtNotIn: [Time!]
-  firstDetectedAtGT: Time
-  firstDetectedAtGTE: Time
-  firstDetectedAtLT: Time
-  firstDetectedAtLTE: Time
-  """
-  last_seen field predicates
-  """
-  lastSeen: Time
-  lastSeenNEQ: Time
-  lastSeenIn: [Time!]
-  lastSeenNotIn: [Time!]
-  lastSeenGT: Time
-  lastSeenGTE: Time
-  lastSeenLT: Time
-  lastSeenLTE: Time
-  """
-  last_checked field predicates
-  """
-  lastChecked: Time
-  lastCheckedNEQ: Time
-  lastCheckedIn: [Time!]
-  lastCheckedNotIn: [Time!]
-  lastCheckedGT: Time
-  lastCheckedGTE: Time
-  lastCheckedLT: Time
-  lastCheckedLTE: Time
-  """
-  removed_at field predicates
-  """
-  removedAt: Time
-  removedAtNEQ: Time
-  removedAtIn: [Time!]
-  removedAtNotIn: [Time!]
-  removedAtGT: Time
-  removedAtGTE: Time
-  removedAtLT: Time
-  removedAtLTE: Time
-  removedAtIsNil: Boolean
-  removedAtNotNil: Boolean
 }
 ```
 
@@ -7475,204 +6929,6 @@ input ListViewWhereInput {
 }
 ```
 
-### `MarkdownFileOrder`  <sub>ent.graphql</sub>
-
-```graphql
-input MarkdownFileOrder {
-  """
-  The ordering direction.
-  """
-  direction: OrderDirection! = ASC
-  """
-  The field by which to order MarkdownFiles.
-  """
-  field: MarkdownFileOrderField!
-}
-```
-
-### `MarkdownFileWhereInput`  <sub>ent.graphql</sub>
-
-```graphql
-input MarkdownFileWhereInput {
-  not: MarkdownFileWhereInput
-  and: [MarkdownFileWhereInput!]
-  or: [MarkdownFileWhereInput!]
-  """
-  id field predicates
-  """
-  id: ID
-  idNEQ: ID
-  idIn: [ID!]
-  idNotIn: [ID!]
-  idGT: ID
-  idGTE: ID
-  idLT: ID
-  idLTE: ID
-  idEqualFold: ID
-  idContainsFold: ID
-  """
-  workspace_id field predicates
-  """
-  workspaceID: String
-  workspaceIDNEQ: String
-  workspaceIDIn: [String!]
-  workspaceIDNotIn: [String!]
-  workspaceIDGT: String
-  workspaceIDGTE: String
-  workspaceIDLT: String
-  workspaceIDLTE: String
-  workspaceIDContains: String
-  workspaceIDHasPrefix: String
-  workspaceIDHasSuffix: String
-  workspaceIDIsNil: Boolean
-  workspaceIDNotNil: Boolean
-  workspaceIDEqualFold: String
-  workspaceIDContainsFold: String
-  """
-  created_at field predicates
-  """
-  createdAt: Time
-  createdAtNEQ: Time
-  createdAtIn: [Time!]
-  createdAtNotIn: [Time!]
-  createdAtGT: Time
-  createdAtGTE: Time
-  createdAtLT: Time
-  createdAtLTE: Time
-  createdAtIsNil: Boolean
-  createdAtNotNil: Boolean
-  """
-  updated_at field predicates
-  """
-  updatedAt: Time
-  updatedAtNEQ: Time
-  updatedAtIn: [Time!]
-  updatedAtNotIn: [Time!]
-  updatedAtGT: Time
-  updatedAtGTE: Time
-  updatedAtLT: Time
-  updatedAtLTE: Time
-  updatedAtIsNil: Boolean
-  updatedAtNotNil: Boolean
-  """
-  project_id field predicates
-  """
-  projectID: ID
-  projectIDNEQ: ID
-  projectIDIn: [ID!]
-  projectIDNotIn: [ID!]
-  projectIDGT: ID
-  projectIDGTE: ID
-  projectIDLT: ID
-  projectIDLTE: ID
-  projectIDContains: ID
-  projectIDHasPrefix: ID
-  projectIDHasSuffix: ID
-  projectIDEqualFold: ID
-  projectIDContainsFold: ID
-  """
-  project_directory_id field predicates
-  """
-  projectDirectoryID: ID
-  projectDirectoryIDNEQ: ID
-  projectDirectoryIDIn: [ID!]
-  projectDirectoryIDNotIn: [ID!]
-  projectDirectoryIDGT: ID
-  projectDirectoryIDGTE: ID
-  projectDirectoryIDLT: ID
-  projectDirectoryIDLTE: ID
-  projectDirectoryIDContains: ID
-  projectDirectoryIDHasPrefix: ID
-  projectDirectoryIDHasSuffix: ID
-  projectDirectoryIDEqualFold: ID
-  projectDirectoryIDContainsFold: ID
-  """
-  relative_path field predicates
-  """
-  relativePath: String
-  relativePathNEQ: String
-  relativePathIn: [String!]
-  relativePathNotIn: [String!]
-  relativePathGT: String
-  relativePathGTE: String
-  relativePathLT: String
-  relativePathLTE: String
-  relativePathContains: String
-  relativePathHasPrefix: String
-  relativePathHasSuffix: String
-  relativePathEqualFold: String
-  relativePathContainsFold: String
-  """
-  name field predicates
-  """
-  name: String
-  nameNEQ: String
-  nameIn: [String!]
-  nameNotIn: [String!]
-  nameGT: String
-  nameGTE: String
-  nameLT: String
-  nameLTE: String
-  nameContains: String
-  nameHasPrefix: String
-  nameHasSuffix: String
-  nameEqualFold: String
-  nameContainsFold: String
-  """
-  extension field predicates
-  """
-  extension: String
-  extensionNEQ: String
-  extensionIn: [String!]
-  extensionNotIn: [String!]
-  extensionGT: String
-  extensionGTE: String
-  extensionLT: String
-  extensionLTE: String
-  extensionContains: String
-  extensionHasPrefix: String
-  extensionHasSuffix: String
-  extensionEqualFold: String
-  extensionContainsFold: String
-  """
-  size_bytes field predicates
-  """
-  sizeBytes: Int
-  sizeBytesNEQ: Int
-  sizeBytesIn: [Int!]
-  sizeBytesNotIn: [Int!]
-  sizeBytesGT: Int
-  sizeBytesGTE: Int
-  sizeBytesLT: Int
-  sizeBytesLTE: Int
-  sizeBytesIsNil: Boolean
-  sizeBytesNotNil: Boolean
-  """
-  modified_at field predicates
-  """
-  modifiedAt: Time
-  modifiedAtNEQ: Time
-  modifiedAtIn: [Time!]
-  modifiedAtNotIn: [Time!]
-  modifiedAtGT: Time
-  modifiedAtGTE: Time
-  modifiedAtLT: Time
-  modifiedAtLTE: Time
-  modifiedAtIsNil: Boolean
-  modifiedAtNotNil: Boolean
-  """
-  project_directory edge predicates
-  """
-  hasProjectDirectory: Boolean
-  hasProjectDirectoryWith: [ProjectDirectoryWhereInput!]
-  """
-  project edge predicates
-  """
-  hasProject: Boolean
-  hasProjectWith: [ProjectWhereInput!]
-}
-```
-
 ### `MemoryOrder`  <sub>ent.graphql</sub>
 
 ```graphql
@@ -7775,6 +7031,13 @@ input MemoryWhereInput {
   tagNEQ: MemoryTag
   tagIn: [MemoryTag!]
   tagNotIn: [MemoryTag!]
+  """
+  status field predicates
+  """
+  status: MemoryStatus
+  statusNEQ: MemoryStatus
+  statusIn: [MemoryStatus!]
+  statusNotIn: [MemoryStatus!]
   """
   title field predicates
   """
@@ -7879,6 +7142,19 @@ input MemoryWhereInput {
   createdByAgentIDNotNil: Boolean
   createdByAgentIDEqualFold: String
   createdByAgentIDContainsFold: String
+  """
+  archived_at field predicates
+  """
+  archivedAt: Time
+  archivedAtNEQ: Time
+  archivedAtIn: [Time!]
+  archivedAtNotIn: [Time!]
+  archivedAtGT: Time
+  archivedAtGTE: Time
+  archivedAtLT: Time
+  archivedAtLTE: Time
+  archivedAtIsNil: Boolean
+  archivedAtNotNil: Boolean
   """
   activities edge predicates
   """
@@ -8400,6 +7676,19 @@ input PlanWhereInput {
   createdByUserIDEqualFold: String
   createdByUserIDContainsFold: String
   """
+  archived_at field predicates
+  """
+  archivedAt: Time
+  archivedAtNEQ: Time
+  archivedAtIn: [Time!]
+  archivedAtNotIn: [Time!]
+  archivedAtGT: Time
+  archivedAtGTE: Time
+  archivedAtLT: Time
+  archivedAtLTE: Time
+  archivedAtIsNil: Boolean
+  archivedAtNotNil: Boolean
+  """
   project edge predicates
   """
   hasProject: Boolean
@@ -8592,11 +7881,6 @@ input ProjectDirectoryWhereInput {
   """
   hasProject: Boolean
   hasProjectWith: [ProjectWhereInput!]
-  """
-  markdown_files edge predicates
-  """
-  hasMarkdownFiles: Boolean
-  hasMarkdownFilesWith: [MarkdownFileWhereInput!]
 }
 ```
 
@@ -8904,16 +8188,6 @@ input ProjectWhereInput {
   hasDirectories: Boolean
   hasDirectoriesWith: [ProjectDirectoryWhereInput!]
   """
-  markdown_files edge predicates
-  """
-  hasMarkdownFiles: Boolean
-  hasMarkdownFilesWith: [MarkdownFileWhereInput!]
-  """
-  term_sessions edge predicates
-  """
-  hasTermSessions: Boolean
-  hasTermSessionsWith: [TermSessionWhereInput!]
-  """
   workspace_layouts edge predicates
   """
   hasWorkspaceLayouts: Boolean
@@ -8963,6 +8237,11 @@ input ProjectWhereInput {
   """
   hasSources: Boolean
   hasSourcesWith: [SourceWhereInput!]
+  """
+  scratches edge predicates
+  """
+  hasScratches: Boolean
+  hasScratchesWith: [ScratchWhereInput!]
   """
   members edge predicates
   """
@@ -9899,7 +9178,7 @@ input RunWhereInput {
 }
 ```
 
-### `SaveWorkspaceLayoutInput`  <sub>term.graphql</sub>
+### `SaveWorkspaceLayoutInput`  <sub>workspace_layout.graphql</sub>
 
 ```graphql
 input SaveWorkspaceLayoutInput {
@@ -9907,6 +9186,210 @@ input SaveWorkspaceLayoutInput {
   name: String!
   isDefault: Boolean
   spec: Map!
+}
+```
+
+### `ScratchOrder`  <sub>ent.graphql</sub>
+
+```graphql
+input ScratchOrder {
+  """
+  The ordering direction.
+  """
+  direction: OrderDirection! = ASC
+  """
+  The field by which to order Scratches.
+  """
+  field: ScratchOrderField!
+}
+```
+
+### `ScratchWhereInput`  <sub>ent.graphql</sub>
+
+```graphql
+input ScratchWhereInput {
+  not: ScratchWhereInput
+  and: [ScratchWhereInput!]
+  or: [ScratchWhereInput!]
+  """
+  id field predicates
+  """
+  id: ID
+  idNEQ: ID
+  idIn: [ID!]
+  idNotIn: [ID!]
+  idGT: ID
+  idGTE: ID
+  idLT: ID
+  idLTE: ID
+  idEqualFold: ID
+  idContainsFold: ID
+  """
+  workspace_id field predicates
+  """
+  workspaceID: String
+  workspaceIDNEQ: String
+  workspaceIDIn: [String!]
+  workspaceIDNotIn: [String!]
+  workspaceIDGT: String
+  workspaceIDGTE: String
+  workspaceIDLT: String
+  workspaceIDLTE: String
+  workspaceIDContains: String
+  workspaceIDHasPrefix: String
+  workspaceIDHasSuffix: String
+  workspaceIDIsNil: Boolean
+  workspaceIDNotNil: Boolean
+  workspaceIDEqualFold: String
+  workspaceIDContainsFold: String
+  """
+  created_at field predicates
+  """
+  createdAt: Time
+  createdAtNEQ: Time
+  createdAtIn: [Time!]
+  createdAtNotIn: [Time!]
+  createdAtGT: Time
+  createdAtGTE: Time
+  createdAtLT: Time
+  createdAtLTE: Time
+  createdAtIsNil: Boolean
+  createdAtNotNil: Boolean
+  """
+  updated_at field predicates
+  """
+  updatedAt: Time
+  updatedAtNEQ: Time
+  updatedAtIn: [Time!]
+  updatedAtNotIn: [Time!]
+  updatedAtGT: Time
+  updatedAtGTE: Time
+  updatedAtLT: Time
+  updatedAtLTE: Time
+  updatedAtIsNil: Boolean
+  updatedAtNotNil: Boolean
+  """
+  project_id field predicates
+  """
+  projectID: ID
+  projectIDNEQ: ID
+  projectIDIn: [ID!]
+  projectIDNotIn: [ID!]
+  projectIDGT: ID
+  projectIDGTE: ID
+  projectIDLT: ID
+  projectIDLTE: ID
+  projectIDContains: ID
+  projectIDHasPrefix: ID
+  projectIDHasSuffix: ID
+  projectIDEqualFold: ID
+  projectIDContainsFold: ID
+  """
+  title field predicates
+  """
+  title: String
+  titleNEQ: String
+  titleIn: [String!]
+  titleNotIn: [String!]
+  titleGT: String
+  titleGTE: String
+  titleLT: String
+  titleLTE: String
+  titleContains: String
+  titleHasPrefix: String
+  titleHasSuffix: String
+  titleIsNil: Boolean
+  titleNotNil: Boolean
+  titleEqualFold: String
+  titleContainsFold: String
+  """
+  body field predicates
+  """
+  body: String
+  bodyNEQ: String
+  bodyIn: [String!]
+  bodyNotIn: [String!]
+  bodyGT: String
+  bodyGTE: String
+  bodyLT: String
+  bodyLTE: String
+  bodyContains: String
+  bodyHasPrefix: String
+  bodyHasSuffix: String
+  bodyIsNil: Boolean
+  bodyNotNil: Boolean
+  bodyEqualFold: String
+  bodyContainsFold: String
+  """
+  language field predicates
+  """
+  language: String
+  languageNEQ: String
+  languageIn: [String!]
+  languageNotIn: [String!]
+  languageGT: String
+  languageGTE: String
+  languageLT: String
+  languageLTE: String
+  languageContains: String
+  languageHasPrefix: String
+  languageHasSuffix: String
+  languageIsNil: Boolean
+  languageNotNil: Boolean
+  languageEqualFold: String
+  languageContainsFold: String
+  """
+  pinned field predicates
+  """
+  pinned: Boolean
+  pinnedNEQ: Boolean
+  """
+  position field predicates
+  """
+  position: Float
+  positionNEQ: Float
+  positionIn: [Float!]
+  positionNotIn: [Float!]
+  positionGT: Float
+  positionGTE: Float
+  positionLT: Float
+  positionLTE: Float
+  """
+  archived_at field predicates
+  """
+  archivedAt: Time
+  archivedAtNEQ: Time
+  archivedAtIn: [Time!]
+  archivedAtNotIn: [Time!]
+  archivedAtGT: Time
+  archivedAtGTE: Time
+  archivedAtLT: Time
+  archivedAtLTE: Time
+  archivedAtIsNil: Boolean
+  archivedAtNotNil: Boolean
+  """
+  created_by_user_id field predicates
+  """
+  createdByUserID: String
+  createdByUserIDNEQ: String
+  createdByUserIDIn: [String!]
+  createdByUserIDNotIn: [String!]
+  createdByUserIDGT: String
+  createdByUserIDGTE: String
+  createdByUserIDLT: String
+  createdByUserIDLTE: String
+  createdByUserIDContains: String
+  createdByUserIDHasPrefix: String
+  createdByUserIDHasSuffix: String
+  createdByUserIDIsNil: Boolean
+  createdByUserIDNotNil: Boolean
+  createdByUserIDEqualFold: String
+  createdByUserIDContainsFold: String
+  """
+  project edge predicates
+  """
+  hasProject: Boolean
+  hasProjectWith: [ProjectWhereInput!]
 }
 ```
 
@@ -10389,6 +9872,19 @@ input SpecWhereInput {
   createdByUserIDEqualFold: String
   createdByUserIDContainsFold: String
   """
+  archived_at field predicates
+  """
+  archivedAt: Time
+  archivedAtNEQ: Time
+  archivedAtIn: [Time!]
+  archivedAtNotIn: [Time!]
+  archivedAtGT: Time
+  archivedAtGTE: Time
+  archivedAtLT: Time
+  archivedAtLTE: Time
+  archivedAtIsNil: Boolean
+  archivedAtNotNil: Boolean
+  """
   project edge predicates
   """
   hasProject: Boolean
@@ -10496,6 +9992,161 @@ input TagWhereInput {
   updatedAtIsNil: Boolean
   updatedAtNotNil: Boolean
   """
+  name field predicates
+  """
+  name: String
+  nameNEQ: String
+  nameIn: [String!]
+  nameNotIn: [String!]
+  nameGT: String
+  nameGTE: String
+  nameLT: String
+  nameLTE: String
+  nameContains: String
+  nameHasPrefix: String
+  nameHasSuffix: String
+  nameEqualFold: String
+  nameContainsFold: String
+  """
+  name_lower field predicates
+  """
+  nameLower: String
+  nameLowerNEQ: String
+  nameLowerIn: [String!]
+  nameLowerNotIn: [String!]
+  nameLowerGT: String
+  nameLowerGTE: String
+  nameLowerLT: String
+  nameLowerLTE: String
+  nameLowerContains: String
+  nameLowerHasPrefix: String
+  nameLowerHasSuffix: String
+  nameLowerEqualFold: String
+  nameLowerContainsFold: String
+  """
+  color field predicates
+  """
+  color: String
+  colorNEQ: String
+  colorIn: [String!]
+  colorNotIn: [String!]
+  colorGT: String
+  colorGTE: String
+  colorLT: String
+  colorLTE: String
+  colorContains: String
+  colorHasPrefix: String
+  colorHasSuffix: String
+  colorIsNil: Boolean
+  colorNotNil: Boolean
+  colorEqualFold: String
+  colorContainsFold: String
+  """
+  created_by_user_id field predicates
+  """
+  createdByUserID: String
+  createdByUserIDNEQ: String
+  createdByUserIDIn: [String!]
+  createdByUserIDNotIn: [String!]
+  createdByUserIDGT: String
+  createdByUserIDGTE: String
+  createdByUserIDLT: String
+  createdByUserIDLTE: String
+  createdByUserIDContains: String
+  createdByUserIDHasPrefix: String
+  createdByUserIDHasSuffix: String
+  createdByUserIDIsNil: Boolean
+  createdByUserIDNotNil: Boolean
+  createdByUserIDEqualFold: String
+  createdByUserIDContainsFold: String
+  """
+  taggables edge predicates
+  """
+  hasTaggables: Boolean
+  hasTaggablesWith: [TaggableWhereInput!]
+}
+```
+
+### `TaggableOrder`  <sub>ent.graphql</sub>
+
+```graphql
+input TaggableOrder {
+  """
+  The ordering direction.
+  """
+  direction: OrderDirection! = ASC
+  """
+  The field by which to order Taggables.
+  """
+  field: TaggableOrderField!
+}
+```
+
+### `TaggableWhereInput`  <sub>ent.graphql</sub>
+
+```graphql
+input TaggableWhereInput {
+  not: TaggableWhereInput
+  and: [TaggableWhereInput!]
+  or: [TaggableWhereInput!]
+  """
+  id field predicates
+  """
+  id: ID
+  idNEQ: ID
+  idIn: [ID!]
+  idNotIn: [ID!]
+  idGT: ID
+  idGTE: ID
+  idLT: ID
+  idLTE: ID
+  idEqualFold: ID
+  idContainsFold: ID
+  """
+  workspace_id field predicates
+  """
+  workspaceID: String
+  workspaceIDNEQ: String
+  workspaceIDIn: [String!]
+  workspaceIDNotIn: [String!]
+  workspaceIDGT: String
+  workspaceIDGTE: String
+  workspaceIDLT: String
+  workspaceIDLTE: String
+  workspaceIDContains: String
+  workspaceIDHasPrefix: String
+  workspaceIDHasSuffix: String
+  workspaceIDIsNil: Boolean
+  workspaceIDNotNil: Boolean
+  workspaceIDEqualFold: String
+  workspaceIDContainsFold: String
+  """
+  created_at field predicates
+  """
+  createdAt: Time
+  createdAtNEQ: Time
+  createdAtIn: [Time!]
+  createdAtNotIn: [Time!]
+  createdAtGT: Time
+  createdAtGTE: Time
+  createdAtLT: Time
+  createdAtLTE: Time
+  createdAtIsNil: Boolean
+  createdAtNotNil: Boolean
+  """
+  updated_at field predicates
+  """
+  updatedAt: Time
+  updatedAtNEQ: Time
+  updatedAtIn: [Time!]
+  updatedAtNotIn: [Time!]
+  updatedAtGT: Time
+  updatedAtGTE: Time
+  updatedAtLT: Time
+  updatedAtLTE: Time
+  updatedAtIsNil: Boolean
+  updatedAtNotNil: Boolean
+  """
   taggable_id field predicates
   """
   taggableID: String
@@ -10532,21 +10183,21 @@ input TagWhereInput {
   taggableTypeEqualFold: String
   taggableTypeContainsFold: String
   """
-  name field predicates
+  tag_id field predicates
   """
-  name: String
-  nameNEQ: String
-  nameIn: [String!]
-  nameNotIn: [String!]
-  nameGT: String
-  nameGTE: String
-  nameLT: String
-  nameLTE: String
-  nameContains: String
-  nameHasPrefix: String
-  nameHasSuffix: String
-  nameEqualFold: String
-  nameContainsFold: String
+  tagID: ID
+  tagIDNEQ: ID
+  tagIDIn: [ID!]
+  tagIDNotIn: [ID!]
+  tagIDGT: ID
+  tagIDGTE: ID
+  tagIDLT: ID
+  tagIDLTE: ID
+  tagIDContains: ID
+  tagIDHasPrefix: ID
+  tagIDHasSuffix: ID
+  tagIDEqualFold: ID
+  tagIDContainsFold: ID
   """
   created_by_user_id field predicates
   """
@@ -10583,6 +10234,11 @@ input TagWhereInput {
   createdByAgentIDNotNil: Boolean
   createdByAgentIDEqualFold: String
   createdByAgentIDContainsFold: String
+  """
+  tag edge predicates
+  """
+  hasTag: Boolean
+  hasTagWith: [TagWhereInput!]
 }
 ```
 
@@ -11925,301 +11581,6 @@ input TaskWhereInput {
 }
 ```
 
-### `TermSessionOrder`  <sub>ent.graphql</sub>
-
-```graphql
-input TermSessionOrder {
-  """
-  The ordering direction.
-  """
-  direction: OrderDirection! = ASC
-  """
-  The field by which to order TermSessions.
-  """
-  field: TermSessionOrderField!
-}
-```
-
-### `TermSessionWhereInput`  <sub>ent.graphql</sub>
-
-```graphql
-input TermSessionWhereInput {
-  not: TermSessionWhereInput
-  and: [TermSessionWhereInput!]
-  or: [TermSessionWhereInput!]
-  """
-  id field predicates
-  """
-  id: ID
-  idNEQ: ID
-  idIn: [ID!]
-  idNotIn: [ID!]
-  idGT: ID
-  idGTE: ID
-  idLT: ID
-  idLTE: ID
-  idEqualFold: ID
-  idContainsFold: ID
-  """
-  workspace_id field predicates
-  """
-  workspaceID: String
-  workspaceIDNEQ: String
-  workspaceIDIn: [String!]
-  workspaceIDNotIn: [String!]
-  workspaceIDGT: String
-  workspaceIDGTE: String
-  workspaceIDLT: String
-  workspaceIDLTE: String
-  workspaceIDContains: String
-  workspaceIDHasPrefix: String
-  workspaceIDHasSuffix: String
-  workspaceIDIsNil: Boolean
-  workspaceIDNotNil: Boolean
-  workspaceIDEqualFold: String
-  workspaceIDContainsFold: String
-  """
-  created_at field predicates
-  """
-  createdAt: Time
-  createdAtNEQ: Time
-  createdAtIn: [Time!]
-  createdAtNotIn: [Time!]
-  createdAtGT: Time
-  createdAtGTE: Time
-  createdAtLT: Time
-  createdAtLTE: Time
-  createdAtIsNil: Boolean
-  createdAtNotNil: Boolean
-  """
-  updated_at field predicates
-  """
-  updatedAt: Time
-  updatedAtNEQ: Time
-  updatedAtIn: [Time!]
-  updatedAtNotIn: [Time!]
-  updatedAtGT: Time
-  updatedAtGTE: Time
-  updatedAtLT: Time
-  updatedAtLTE: Time
-  updatedAtIsNil: Boolean
-  updatedAtNotNil: Boolean
-  """
-  project_id field predicates
-  """
-  projectID: ID
-  projectIDNEQ: ID
-  projectIDIn: [ID!]
-  projectIDNotIn: [ID!]
-  projectIDGT: ID
-  projectIDGTE: ID
-  projectIDLT: ID
-  projectIDLTE: ID
-  projectIDContains: ID
-  projectIDHasPrefix: ID
-  projectIDHasSuffix: ID
-  projectIDEqualFold: ID
-  projectIDContainsFold: ID
-  """
-  name field predicates
-  """
-  name: String
-  nameNEQ: String
-  nameIn: [String!]
-  nameNotIn: [String!]
-  nameGT: String
-  nameGTE: String
-  nameLT: String
-  nameLTE: String
-  nameContains: String
-  nameHasPrefix: String
-  nameHasSuffix: String
-  nameEqualFold: String
-  nameContainsFold: String
-  """
-  shell field predicates
-  """
-  shell: String
-  shellNEQ: String
-  shellIn: [String!]
-  shellNotIn: [String!]
-  shellGT: String
-  shellGTE: String
-  shellLT: String
-  shellLTE: String
-  shellContains: String
-  shellHasPrefix: String
-  shellHasSuffix: String
-  shellEqualFold: String
-  shellContainsFold: String
-  """
-  cwd field predicates
-  """
-  cwd: String
-  cwdNEQ: String
-  cwdIn: [String!]
-  cwdNotIn: [String!]
-  cwdGT: String
-  cwdGTE: String
-  cwdLT: String
-  cwdLTE: String
-  cwdContains: String
-  cwdHasPrefix: String
-  cwdHasSuffix: String
-  cwdEqualFold: String
-  cwdContainsFold: String
-  """
-  agent_kind field predicates
-  """
-  agentKind: TermSessionAgentKind
-  agentKindNEQ: TermSessionAgentKind
-  agentKindIn: [TermSessionAgentKind!]
-  agentKindNotIn: [TermSessionAgentKind!]
-  """
-  status field predicates
-  """
-  status: TermSessionStatus
-  statusNEQ: TermSessionStatus
-  statusIn: [TermSessionStatus!]
-  statusNotIn: [TermSessionStatus!]
-  """
-  exit_code field predicates
-  """
-  exitCode: Int
-  exitCodeNEQ: Int
-  exitCodeIn: [Int!]
-  exitCodeNotIn: [Int!]
-  exitCodeGT: Int
-  exitCodeGTE: Int
-  exitCodeLT: Int
-  exitCodeLTE: Int
-  exitCodeIsNil: Boolean
-  exitCodeNotNil: Boolean
-  """
-  pid field predicates
-  """
-  pid: Int
-  pidNEQ: Int
-  pidIn: [Int!]
-  pidNotIn: [Int!]
-  pidGT: Int
-  pidGTE: Int
-  pidLT: Int
-  pidLTE: Int
-  pidIsNil: Boolean
-  pidNotNil: Boolean
-  """
-  host_id field predicates
-  """
-  hostID: String
-  hostIDNEQ: String
-  hostIDIn: [String!]
-  hostIDNotIn: [String!]
-  hostIDGT: String
-  hostIDGTE: String
-  hostIDLT: String
-  hostIDLTE: String
-  hostIDContains: String
-  hostIDHasPrefix: String
-  hostIDHasSuffix: String
-  hostIDIsNil: Boolean
-  hostIDNotNil: Boolean
-  hostIDEqualFold: String
-  hostIDContainsFold: String
-  """
-  log_path field predicates
-  """
-  logPath: String
-  logPathNEQ: String
-  logPathIn: [String!]
-  logPathNotIn: [String!]
-  logPathGT: String
-  logPathGTE: String
-  logPathLT: String
-  logPathLTE: String
-  logPathContains: String
-  logPathHasPrefix: String
-  logPathHasSuffix: String
-  logPathIsNil: Boolean
-  logPathNotNil: Boolean
-  logPathEqualFold: String
-  logPathContainsFold: String
-  """
-  log_bytes field predicates
-  """
-  logBytes: Int
-  logBytesNEQ: Int
-  logBytesIn: [Int!]
-  logBytesNotIn: [Int!]
-  logBytesGT: Int
-  logBytesGTE: Int
-  logBytesLT: Int
-  logBytesLTE: Int
-  """
-  log_events field predicates
-  """
-  logEvents: Int
-  logEventsNEQ: Int
-  logEventsIn: [Int!]
-  logEventsNotIn: [Int!]
-  logEventsGT: Int
-  logEventsGTE: Int
-  logEventsLT: Int
-  logEventsLTE: Int
-  """
-  cols field predicates
-  """
-  cols: Int
-  colsNEQ: Int
-  colsIn: [Int!]
-  colsNotIn: [Int!]
-  colsGT: Int
-  colsGTE: Int
-  colsLT: Int
-  colsLTE: Int
-  """
-  rows field predicates
-  """
-  rows: Int
-  rowsNEQ: Int
-  rowsIn: [Int!]
-  rowsNotIn: [Int!]
-  rowsGT: Int
-  rowsGTE: Int
-  rowsLT: Int
-  rowsLTE: Int
-  """
-  last_active_at field predicates
-  """
-  lastActiveAt: Time
-  lastActiveAtNEQ: Time
-  lastActiveAtIn: [Time!]
-  lastActiveAtNotIn: [Time!]
-  lastActiveAtGT: Time
-  lastActiveAtGTE: Time
-  lastActiveAtLT: Time
-  lastActiveAtLTE: Time
-  """
-  ended_at field predicates
-  """
-  endedAt: Time
-  endedAtNEQ: Time
-  endedAtIn: [Time!]
-  endedAtNotIn: [Time!]
-  endedAtGT: Time
-  endedAtGTE: Time
-  endedAtLT: Time
-  endedAtLTE: Time
-  endedAtIsNil: Boolean
-  endedAtNotNil: Boolean
-  """
-  project edge predicates
-  """
-  hasProject: Boolean
-  hasProjectWith: [ProjectWhereInput!]
-}
-```
-
 ### `UpdateAreaInput`  <sub>ent.graphql</sub>
 
 ```graphql
@@ -12319,6 +11680,8 @@ input UpdateDecisionInput {
   clearCreatedByUserID: Boolean
   createdByAgentID: String
   clearCreatedByAgentID: Boolean
+  archivedAt: Time
+  clearArchivedAt: Boolean
   addActivityIDs: [ID!]
   removeActivityIDs: [ID!]
   clearActivities: Boolean
@@ -12362,6 +11725,8 @@ input UpdateIdeaInput {
   clearSourceURL: Boolean
   createdByUserID: String
   clearCreatedByUserID: Boolean
+  archivedAt: Time
+  clearArchivedAt: Boolean
   projectID: ID
   areaID: ID
   clearArea: Boolean
@@ -12416,24 +11781,6 @@ input UpdateListViewInput {
 }
 ```
 
-### `UpdateMarkdownFileInput`  <sub>ent.graphql</sub>
-
-```graphql
-input UpdateMarkdownFileInput {
-  workspaceID: String
-  clearWorkspaceID: Boolean
-  relativePath: String
-  name: String
-  extension: String
-  sizeBytes: Int
-  clearSizeBytes: Boolean
-  modifiedAt: Time
-  clearModifiedAt: Boolean
-  projectDirectoryID: ID
-  projectID: ID
-}
-```
-
 ### `UpdateMemoryInput`  <sub>ent.graphql</sub>
 
 ```graphql
@@ -12442,6 +11789,7 @@ input UpdateMemoryInput {
   clearWorkspaceID: Boolean
   projectID: String
   tag: MemoryTag
+  status: MemoryStatus
   title: String
   body: String
   sourceTaskID: String
@@ -12452,6 +11800,8 @@ input UpdateMemoryInput {
   clearCreatedByUserID: Boolean
   createdByAgentID: String
   clearCreatedByAgentID: Boolean
+  archivedAt: Time
+  clearArchivedAt: Boolean
   addActivityIDs: [ID!]
   removeActivityIDs: [ID!]
   clearActivities: Boolean
@@ -12474,6 +11824,8 @@ input UpdatePlanInput {
   clearApprovedAt: Boolean
   createdByUserID: String
   clearCreatedByUserID: Boolean
+  archivedAt: Time
+  clearArchivedAt: Boolean
   projectID: ID
   specID: ID
   clearSpec: Boolean
@@ -12501,9 +11853,6 @@ input UpdateProjectDirectoryInput {
   isActive: Boolean
   sortOrder: Int
   projectID: ID
-  addMarkdownFileIDs: [ID!]
-  removeMarkdownFileIDs: [ID!]
-  clearMarkdownFiles: Boolean
 }
 ```
 
@@ -12520,12 +11869,6 @@ input UpdateProjectInput {
   addDirectoryIDs: [ID!]
   removeDirectoryIDs: [ID!]
   clearDirectories: Boolean
-  addMarkdownFileIDs: [ID!]
-  removeMarkdownFileIDs: [ID!]
-  clearMarkdownFiles: Boolean
-  addTermSessionIDs: [ID!]
-  removeTermSessionIDs: [ID!]
-  clearTermSessions: Boolean
   addWorkspaceLayoutIDs: [ID!]
   removeWorkspaceLayoutIDs: [ID!]
   clearWorkspaceLayouts: Boolean
@@ -12556,6 +11899,9 @@ input UpdateProjectInput {
   addSourceIDs: [ID!]
   removeSourceIDs: [ID!]
   clearSources: Boolean
+  addScratchIDs: [ID!]
+  removeScratchIDs: [ID!]
+  clearScratches: Boolean
   addMemberIDs: [ID!]
   removeMemberIDs: [ID!]
   clearMembers: Boolean
@@ -12577,6 +11923,28 @@ input UpdateProjectMemberInput {
   projectID: ID
   userID: ID
   designationID: ID
+}
+```
+
+### `UpdateScratchInput`  <sub>ent.graphql</sub>
+
+```graphql
+input UpdateScratchInput {
+  workspaceID: String
+  clearWorkspaceID: Boolean
+  title: String
+  clearTitle: Boolean
+  body: String
+  clearBody: Boolean
+  language: String
+  clearLanguage: Boolean
+  pinned: Boolean
+  position: Float
+  archivedAt: Time
+  clearArchivedAt: Boolean
+  createdByUserID: String
+  clearCreatedByUserID: Boolean
+  projectID: ID
 }
 ```
 
@@ -12638,6 +12006,8 @@ input UpdateSpecInput {
   version: Int
   createdByUserID: String
   clearCreatedByUserID: Boolean
+  archivedAt: Time
+  clearArchivedAt: Boolean
   projectID: ID
   addPlanIDs: [ID!]
   removePlanIDs: [ID!]
@@ -12645,6 +12015,39 @@ input UpdateSpecInput {
   addActivityIDs: [ID!]
   removeActivityIDs: [ID!]
   clearActivities: Boolean
+}
+```
+
+### `UpdateTagInput`  <sub>ent.graphql</sub>
+
+```graphql
+input UpdateTagInput {
+  workspaceID: String
+  clearWorkspaceID: Boolean
+  """
+  Display name as the user typed it; lookup is case-insensitive
+  """
+  name: String
+  """
+  Lowercase normalised name; (workspace_id, name_lower) is unique
+  """
+  nameLower: String
+  """
+  Custom hex color (e.g. #7c3aed). NULL → render from hash palette
+  """
+  color: String
+  clearColor: Boolean
+  """
+  Entity-type allowlist for the picker UI. Empty/NULL = all types
+  """
+  appliesTo: [String!]
+  appendAppliesTo: [String!]
+  clearAppliesTo: Boolean
+  createdByUserID: String
+  clearCreatedByUserID: Boolean
+  addTaggableIDs: [ID!]
+  removeTaggableIDs: [ID!]
+  clearTaggables: Boolean
 }
 ```
 
@@ -13223,7 +12626,7 @@ input WorkspaceLayoutWhereInput {
 
 ---
 
-## Enums (42)
+## Enums (40)
 
 ### `ActivityOrderField`  <sub>ent.graphql</sub>
 
@@ -13243,14 +12646,6 @@ enum AgentOrderField {
   NAME
   KIND
   LAST_SEEN_AT
-}
-```
-
-### `AppScanLogOrderField`  <sub>ent.graphql</sub>
-
-```graphql
-enum AppScanLogOrderField {
-  CREATED_AT
 }
 ```
 
@@ -13348,14 +12743,6 @@ enum IdeaOrderField {
 }
 ```
 
-### `InstalledAppOrderField`  <sub>ent.graphql</sub>
-
-```graphql
-enum InstalledAppOrderField {
-  CREATED_AT
-}
-```
-
 ### `LabelOrderField`  <sub>ent.graphql</sub>
 
 ```graphql
@@ -13393,20 +12780,13 @@ enum ListViewOrderField {
 }
 ```
 
-### `MarkdownFileOrderField`  <sub>ent.graphql</sub>
-
-```graphql
-enum MarkdownFileOrderField {
-  CREATED_AT
-}
-```
-
 ### `MemoryOrderField`  <sub>ent.graphql</sub>
 
 ```graphql
 enum MemoryOrderField {
   CREATED_AT
   TAG
+  STATUS
   TITLE
 }
 ```
@@ -13502,6 +12882,18 @@ enum RunStepOrderField {
 }
 ```
 
+### `ScratchOrderField`  <sub>ent.graphql</sub>
+
+```graphql
+enum ScratchOrderField {
+  CREATED_AT
+  PROJECT_ID
+  TITLE
+  PINNED
+  POSITION
+}
+```
+
 ### `SourceOrderField`  <sub>ent.graphql</sub>
 
 ```graphql
@@ -13547,6 +12939,14 @@ enum TagOrderField {
 }
 ```
 
+### `TaggableOrderField`  <sub>ent.graphql</sub>
+
+```graphql
+enum TaggableOrderField {
+  CREATED_AT
+}
+```
+
 ### `TaggableType`  <sub>tasksystem.graphql</sub>
 
 ```graphql
@@ -13557,6 +12957,7 @@ enum TaggableType {
   DECISION
   MEMORY
   SOURCE
+  TASKLIST
 }
 ```
 
@@ -13622,22 +13023,6 @@ enum TaskTemplateOrderField {
 }
 ```
 
-### `TermSessionOrderField`  <sub>ent.graphql</sub>
-
-```graphql
-enum TermSessionOrderField {
-  CREATED_AT
-  PROJECT_ID
-  NAME
-  SHELL
-  AGENT_KIND
-  STATUS
-  LOG_BYTES
-  LAST_ACTIVE_AT
-  ENDED_AT
-}
-```
-
 ### `UserOrderField`  <sub>ent.graphql</sub>
 
 ```graphql
@@ -13666,9 +13051,9 @@ enum WorkspaceLayoutOrderField {
 
 ## Totals
 
-- Queries: **68**
-- Mutations: **111**
-- Object types: **125**
-- Input types: **124**
-- Enums: **42**
+- Queries: **61**
+- Mutations: **125**
+- Object types: **115**
+- Input types: **121**
+- Enums: **40**
 - Writable entities: **21** — [`entities/README.md`](./entities/README.md)
